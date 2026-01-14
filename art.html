@@ -107,7 +107,42 @@
         /* Effetti Hover */
         .art-piece:hover .art-img { filter: grayscale(0%); }
         .art-piece:hover .art-info { opacity: 1; }
+/* Stile per il Lightbox (lo sfondo scuro) */
+.lightbox {
+    display: none; /* Di base è invisibile */
+    position: fixed; /* Fisso sullo schermo, anche se scorri */
+    z-index: 1000; /* Livello altissimo, sopra ogni altra cosa */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.95); /* Sfondo bianco quasi opaco (o metti 0,0,0 per nero) */
+    backdrop-filter: blur(5px); /* Un tocco chic: sfoca leggermente lo sfondo dietro */
+    justify-content: center; /* Centra orizzontalmente */
+    align-items: center; /* Centra verticalmente */
+    cursor: zoom-out; /* Il cursore suggerisce che cliccando si esce */
+}
 
+/* Quando aggiungiamo questa classe via JS, il lightbox appare */
+.lightbox.active {
+    display: flex; 
+    animation: fadeIn 0.3s ease; /* Appare dolcemente */
+}
+
+/* L'immagine dentro il lightbox */
+.lightbox img {
+    max-width: 90vw; /* Non più larga del 90% dello schermo */
+    max-height: 90vh; /* Non più alta del 90% dello schermo */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2); /* Una bella ombra per staccarla dal fondo */
+    cursor: default; /* Cliccare sull'immagine non deve cambiare cursore */
+    object-fit: contain; /* Mantiene le proporzioni */
+}
+
+/* Animazione di entrata */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
         /* Mobile */
         @media (max-width: 768px) {
             .gallery-container { column-count: 1; }
@@ -134,24 +169,56 @@ Ogni progetto è un tentativo di andare un po’ oltre.
 
     <div class="gallery-container" id="art-container">
         </div>
-
+<div id="lightbox" class="lightbox">
+    <img id="lightbox-img" src="" alt="Ingrandimento">
+</div>
     <script src="data.js"></script>
     <script>
-        const container = document.getElementById('art-container');
-        const artItems = allProjects.filter(item => item.category === 'art');
+    // 1. Riferimenti agli elementi
+    const container = document.getElementById('art-container');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
 
-        artItems.forEach(art => {
-            container.innerHTML += `
-                <div class="art-piece">
-                    <img src="${art.image}" class="art-img" alt="${art.title}">
-                    <div class="art-info">
-                        <h3 class="art-title">${art.title}</h3>
-                        <p class="art-desc">${art.description}</p>
-                        
-                    </div>
+    // 2. Generiamo la galleria (come facevi prima)
+    const artItems = allProjects.filter(item => item.category === 'art');
+
+    artItems.forEach(art => {
+        container.innerHTML += `
+            <div class="art-piece">
+                <img src="${art.image}" class="art-img" alt="${art.title}">
+                
+                <div class="art-info">
+                    <h3 class="art-title">${art.title}</h3>
+                    <p class="art-desc">${art.description}</p>
                 </div>
-            `;
-        });
-    </script>
+            </div>
+        `;
+    });
+
+    // 3. GESTIONE CLICK PER APRIRE
+    // Ascoltiamo i click su tutto il container della galleria
+    container.addEventListener('click', (e) => {
+        // Se l'elemento cliccato ha la classe "art-img"...
+        if (e.target.classList.contains('art-img')) {
+            const srcImmagineCliccata = e.target.src;
+            
+            // Mettiamo quella foto nel lightbox
+            lightboxImg.src = srcImmagineCliccata;
+            
+            // Mostriamo il lightbox
+            lightbox.classList.add('active');
+        }
+    });
+
+    // 4. GESTIONE CLICK PER CHIUDERE
+    // Se clicchi sul lightbox (la parte scura/bianca attorno)...
+    lightbox.addEventListener('click', (e) => {
+        // Chiudi solo se clicchi fuori dall'immagine (o ovunque se preferisci)
+        // Se vuoi che si chiuda anche cliccando sulla foto, togli l'IF.
+        if (e.target !== lightboxImg) { 
+            lightbox.classList.remove('active');
+        }
+    });
+</script>
 </body>
 </html>
