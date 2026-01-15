@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Il Mio Mondo - Teo Zen</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap/dist/css/jsvectormap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsvectormap/dist/maps/world.js"></script>
+
+    <style>
+        /* --- STILE VISIVO --- */
+        body {
+            margin: 0;
+            padding: 0;
+            /* Gestione Area Sicura (Notch) */
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+            min-height: 100vh;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            position: relative; /* Necessario per posizionare il pulsante Home */
+        }
+        
+        /* --- PULSANTE TORNA ALLA HOME --- */
+        .back-btn {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%); /* Centra verticalmente rispetto all'header */
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.3s;
+        }
+        .back-btn:hover {
+            opacity: 0.7;
+        }
+
+        h1 { margin: 0 0 10px 0; font-size: 1.8rem; letter-spacing: 1px; }
+
+        .stats-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 15px; /* Spazio extra per separare dal titolo */
+        }
+        .pill {
+            background: rgba(255,255,255,0.15);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+        }
+
+        #app-content {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        /* Contenitore Mappa */
+        #map-wrapper {
+            background: white;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            height: 55vh; /* Altezza mappa */
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        #map-container { width: 100%; height: 100%; }
+
+        /* Sezione Liste (Bandiere) */
+        .lists-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* Due colonne uguali */
+            gap: 20px;
+        }
+
+        /* Su cellulare le colonne diventano una sotto l'altra */
+        @media (max-width: 768px) {
+            .lists-container { grid-template-columns: 1fr; }
+            /* Su mobile il pulsante Home potrebbe stare meglio sopra il titolo */
+            header { padding-top: 50px; }
+            .back-btn { top: 15px; transform: none; }
+        }
+
+        .list-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .list-title {
+            margin-top: 0;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+            color: #555;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        
+        .country-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .country-item {
+            display: flex;
+            align-items: center;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 1px solid #eee;
+        }
+
+        .flag { margin-right: 8px; font-size: 1.2rem; }
+
+        /* Colori specifici per i titoli */
+        .visited-title { border-color: #27ae60; color: #27ae60; }
+        .wish-title { border-color: #f39c12; color: #f39c12; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #e0e0e0;
+            color: #666;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-btn">&#8592; HOME</a>
+        
+        <h1>Il Mio Diario di Viaggio</h1>
+        <div class="stats-bar">
+            <span class="pill">🌍 Visti: <strong id="count-visited">0</strong></span>
+            <span class="pill">✈️ Desideri: <strong id="count-wish">0</strong></span>
+            <span class="pill">📊 Copertura: <strong id="percentage">0%</strong></span>
+        </div>
+    </header>
+
+    <div id="app-content">
+        
+        <div id="map-wrapper">
+            <div id="map-container"></div>
+        </div>
+
+        <div class="lists-container">
+            <div class="list-box">
+                <h3 class="list-title visited-title">Luoghi Visitati</h3>
+                <ul id="list-visited" class="country-list">
+                    </ul>
+            </div>
+
+            <div class="list-box">
+                <h3 class="list-title wish-title">Prossime Destinazioni</h3>
+                <ul id="list-wish" class="country-list">
+                    </ul>
+            </div>
+        </div>
+
+    </div>
+
+
+    <script>
+        // --- CONFIGURAZIONE UTENTE ---
+        // Inserisci qui i tuoi codici paese (ISO 2 lettere)
+        
+        const myVisited = ['AT', 'BA', 'BE', 'BG', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IT', 'LI', 'LT', 'LU', 'LV', 'MC', 'ME', 'MT', 'NL', 'NO', 'PL', 'PT', 'RO', 'RS', 'SE', 'SI', 'SK', 'SM', 'US', 'CA', 'VA']; 
+        const myWishlist = ['AE', 'AR', 'AU', 'BO', 'BR', 'CL', 'CN', 'CU', 'EG', 'HK', 'ID', 'IL', 'IN', 'JM', 'JO', 'JP', 'KE', 'KH', 'KR', 'LA', 'MA', 'MN', 'MO', 'MV', 'MX', 'MY', 'NA', 'NP', 'NZ', 'OM', 'PE', 'PF', 'SG', 'TH', 'TM', 'TR', 'TW', 'TZ', 'UZ', 'VN', 'ZW'];
+
+        // -----------------------------
+
+        // 1. Funzioni di "Magia" (Utility)
+        
+        // Converte codice 'IT' in bandiera emoji 🇮🇹
+        function getFlagEmoji(countryCode) {
+            const codePoints = countryCode
+                .toUpperCase()
+                .split('')
+                .map(char =>  127397 + char.charCodeAt());
+            return String.fromCodePoint(...codePoints);
+        }
+
+        // Converte codice 'IT' in nome 'Italia' (nella lingua del browser)
+        const regionNames = new Intl.DisplayNames(['it'], {type: 'region'});
+        function getCountryName(code) {
+            try {
+                return regionNames.of(code);
+            } catch (e) {
+                return code; // Se fallisce, restituisce il codice
+            }
+        }
+
+        // 2. Generazione Liste HTML
+        function renderList(listId, countryCodes) {
+            const listElement = document.getElementById(listId);
+            listElement.innerHTML = ''; // Pulisce la lista
+
+            countryCodes.forEach(code => {
+                const li = document.createElement('li');
+                li.className = 'country-item';
+                // Crea l'HTML: Bandiera + Nome
+                li.innerHTML = `<span class="flag">${getFlagEmoji(code)}</span> ${getCountryName(code)}`;
+                listElement.appendChild(li);
+            });
+        }
+
+        // 3. Calcoli e Statistiche
+        const totalCountries = 195;
+        document.getElementById('count-visited').innerText = myVisited.length;
+        document.getElementById('count-wish').innerText = myWishlist.length;
+        document.getElementById('percentage').innerText = ((myVisited.length / totalCountries) * 100).toFixed(1) + '%';
+
+        // Eseguiamo la creazione delle liste
+        renderList('list-visited', myVisited);
+        renderList('list-wish', myWishlist);
+
+        // 4. Configurazione Mappa (Senza legenda interna)
+        const map = new jsVectorMap({
+            selector: '#map-container',
+            map: 'world',
+            
+            regionStyle: {
+                initial: { fill: '#dfe6e9', stroke: '#fff', strokeWidth: 0.5, fillOpacity: 1 },
+                hover: { fillOpacity: 0.8, cursor: 'pointer' }
+            },
+
+            series: {
+                regions: [{
+                    attribute: 'fill',
+                    scale: { 'visited': '#27ae60', 'wish': '#f39c12' },
+                    values: {
+                        ...Object.fromEntries(myVisited.map(c => [c, 'visited'])),
+                        ...Object.fromEntries(myWishlist.map(c => [c, 'wish']))
+                    }
+                }]
+            },
+            
+            zoomOnScroll: false, 
+            zoomButtons: true,
+
+            onRegionTooltipShow(event, tooltip, code) {
+                // Personalizziamo il tooltip anche qui
+                if (myVisited.includes(code)) tooltip.text(`✅ ${tooltip.text()} (Visto)`);
+                else if (myWishlist.includes(code)) tooltip.text(`✈️ ${tooltip.text()} (Vorrei)`);
+            }
+        });
+    </script>
+</body>
+</html>
