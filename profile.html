@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Il Diario di Teo</title>
+    
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- STILE ESCLUSIVO PER IL DIARIO --- */
+
+        /* 1. SETUP DEL FONT (Lo ridefiniamo per sicurezza) */
+        @font-face {
+            font-family: 'TzFont';
+            src: url('fonts/tzfont.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* 2. LO SFONDO (La Scrivania) */
+        body {
+            background-color: #1a1a1a; /* Scrivania scura */
+            background-image: radial-gradient(#2a2a2a 1px, transparent 1px); /* Texture puntini */
+            background-size: 20px 20px;
+            
+            /* QUI IMPONIAMO IL TUO FONT OVUNQUE */
+            font-family: 'TzFont', sans-serif !important; 
+            
+            margin: 0;
+            padding: 40px 20px;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center; /* Centra il foglio */
+            align-items: flex-start;
+        }
+
+        /* PULSANTE INDIETRO (Stile scarabocchio) */
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.5rem;
+            opacity: 0.6;
+            transition: 0.3s;
+            z-index: 100;
+        }
+        .back-link:hover { opacity: 1; transform: scale(1.1); text-decoration: underline;}
+
+        /* 3. IL FOGLIO DI CARTA */
+        .diary-paper {
+            background-color: #fdfbf7; /* Colore carta avorio */
+            width: 100%;
+            max-width: 800px; /* Larghezza massima lettura */
+            min-height: 100vh;
+            padding: 60px;
+            box-sizing: border-box;
+            
+            /* Effetto Ombra (Foglio sollevato) */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            
+            /* Effetto Righe del quaderno */
+            background-image: repeating-linear-gradient(
+                transparent,
+                transparent 39px,
+                #94a3b8 40px /* Riga azzurrina */
+            );
+            
+            position: relative;
+            transform: rotate(-1deg); /* Leggera inclinazione imperfetta */
+        }
+
+        /* Il buco della rilegatura (Decorazione) */
+        .diary-paper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 40px; height: 100%;
+            border-left: 2px solid rgba(255,0,0,0.1); /* Riga margine rosso */
+        }
+
+        /* --- TIPOGRAFIA --- */
+        h1 {
+            font-size: 4rem;
+            margin-top: 0;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            text-align: center;
+            line-height: 1;
+            /* Sottolineatura imperfetta */
+            border-bottom: 3px solid #2c3e50;
+            display: inline-block;
+            width: 100%;
+            transform: rotate(-2deg);
+        }
+
+        p {
+            font-size: 1.6rem; /* Font grande leggibile */
+            line-height: 40px; /* Deve combaciare con le righe dello sfondo! */
+            margin-bottom: 40px;
+        }
+
+        /* --- LE FOTO (POLAROID + SCOTCH) --- */
+        .photo-container {
+            background: white;
+            padding: 15px 15px 40px 15px; /* Più spazio sotto per didascalia */
+            box-shadow: 2px 5px 15px rgba(0,0,0,0.2);
+            width: fit-content;
+            margin: 40px auto; /* Centrate */
+            position: relative;
+            transform: rotate(2deg); /* Foto storta */
+            transition: transform 0.3s ease;
+        }
+
+        .photo-container:hover {
+            transform: scale(1.02) rotate(0deg); /* Si raddrizza al passaggio */
+            z-index: 10;
+        }
+
+        .photo-container img {
+            max-width: 100%;
+            width: 400px; /* Larghezza fissa foto */
+            height: auto;
+            display: block;
+            filter: sepia(20%) contrast(1.1); /* Effetto vintage */
+        }
+
+        .caption {
+            font-size: 1.2rem;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            font-family: 'TzFont', sans-serif;
+        }
+
+        /* EFFETTO SCOTCH (Nastro adesivo) */
+        .tape {
+            background-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 120px;
+            height: 35px;
+            backdrop-filter: blur(2px); /* Effetto plastica semitrasparente */
+            border-left: 1px dashed rgba(0,0,0,0.1);
+            border-right: 1px dashed rgba(0,0,0,0.1);
+        }
+
+        /* Layout a due colonne per immagini e testo alternati */
+        .entry {
+            margin-bottom: 80px;
+        }
+
+        /* ADATTAMENTO MOBILE */
+        @media (max-width: 768px) {
+            .diary-paper { padding: 20px; width: 95%; transform: rotate(0); }
+            h1 { font-size: 2.5rem; }
+            p { font-size: 1.3rem; line-height: 40px; }
+            .photo-container img { width: 100%; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Torna all'Universo</a>
+
+    <div class="diary-paper">
+        
+        <h1>Diario di Bordo</h1>
+
+        <div class="entry">
+            <p>
+                Tutto è iniziato davanti a uno schermo CRT, quando internet faceva ancora rumore per connettersi.
+                Ero solo "Matcore" allora. Un nome veloce, spigoloso, adatto a chi doveva prendere decisioni in millisecondi.
+            </p>
+            
+            <div class="photo-container" style="transform: rotate(-3deg);">
+                <div class="tape"></div>
+                <img src="images/id-2-matcore.jpg" alt="I primi anni">
+                <div class="caption">Anno 2005 - La postazione</div>
+            </div>
+
+            <p>
+                In quel mondo digitale ho imparato la logica. Se premi A, succede B. Se il codice è pulito, il gioco gira fluido.
+                Era un mondo binario, bianco o nero, vittoria o sconfitta.
+            </p>
+        </div>
+
+        <div class="entry">
+            <p>
+                Poi qualcosa è cambiato. Il codice non bastava più. Volevo creare, non solo eseguire.
+                È nato Teo Zen. Ho iniziato a vedere l'arte nei pixel e la musica negli algoritmi.
+            </p>
+
+            <div class="photo-container" style="transform: rotate(2deg);">
+                <div class="tape"></div>
+                <img src="images/id-1-teozen.jpg" alt="Arte Digitale">
+                <div class="caption">Sperimentazioni Visive</div>
+            </div>
+
+            <p>
+                Ho capito che la tecnologia è solo un pennello molto complesso. 
+                Senza un'anima che guida la mano, è solo matematica fredda.
+            </p>
+        </div>
+
+        <div class="entry">
+            <p>
+                E alla fine c'è Matteo. Quello che spegne il computer e cammina nel bosco.
+                Quello che cucina inventando ricette, che ripara le cose rotte invece di buttarle.
+                Perché in fondo, tutto è connesso.
+            </p>
+
+            <div class="photo-container" style="transform: rotate(-1deg);">
+                <div class="tape"></div>
+                <img src="images/id-3-matteo.jpg" alt="Io nel bosco">
+                <div class="caption">Reset nella natura</div>
+            </div>
+            
+            <p style="text-align: right; margin-top: 50px;">
+                - Teo.
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>

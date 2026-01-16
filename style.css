@@ -1,898 +1,449 @@
-/* public/style.css */
+/* public/style.css - VERSIONE ULTIMATE (MERGE COMPLETO) */
 
-/* DEFINIZIONE COLORI (La tua Palette) */
+/* --- 1. IMPORTAZIONE FONT PERSONALE --- */
+/* Assicurati che il file sia in public/fonts/mio-font.ttf */
+@font-face {
+    font-family: 'TzFont'; /* Nome che useremo internamente */
+    src: url('fonts/tzfont.woff2') format('woff2'); /* Il file WOFF2 è perfetto */
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* --- 2. DEFINIZIONE COLORI E VARIABILI --- */
 :root {
+    /* ... (tieni i tuoi colori come sono) ... */
     --blue-azure: #2D7EE0;
     --blue-purple: #4E2DE0;
     --blue-deep: #2D45E0;
-    --blue-cyan: #2DB7E0;   /* Ottimo per i dettagli luminosi */
+    --blue-cyan: #2DB7E0;   
     --purple-violet: #8A2DE0;
     --blue-soft: #7785E0;
-    --bg-dark: #050510;      /* Quasi nero, per lo sfondo */
-    --font-titles: 'Orbitron', sans-serif;  /* Per titoli e impatto */
-    --font-body: 'Montserrat', sans-serif;  /* Per testi lunghi */
-   
+    --bg-dark: #050510;
+    --font-titles: 'Orbitron', sans-serif;
+    --font-body: 'Montserrat', sans-serif;
+    
+    /* AGGIORNA QUESTA RIGA: */
+    --font-custom: 'TzFont', sans-serif; 
 }
-/* SMOOTH SCROLLING PER TUTTO IL SITO */
- html {
+
+/* --- 3. IMPOSTAZIONI GLOBALI & SCROLLBAR --- */
+html {
     scroll-behavior: smooth;
 }
-/* --- SCROLLBAR PERSONALIZZATA (Solo Webkit: Chrome, Safari, Edge) --- */
 
-/* La larghezza della barra */
-::-webkit-scrollbar {
-    width: 10px;
-}
+/* Scrollbar Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: #050510; border-left: 1px solid rgba(255,255,255,0.1); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--blue-deep), var(--purple-violet)); border-radius: 5px; border: 2px solid #050510; }
+::-webkit-scrollbar-thumb:hover { background: var(--blue-cyan); box-shadow: 0 0 10px var(--blue-cyan); }
 
-/* Il binario (sfondo della barra) */
-::-webkit-scrollbar-track {
-    background: #050510; /* Nero spaziale */
-    border-left: 1px solid rgba(255,255,255,0.1);
-}
+/* Selezione Testo */
+::selection { background: var(--purple-violet); color: #fff; text-shadow: 0 0 5px #fff; }
+::-moz-selection { background: var(--purple-violet); color: #fff; }
 
-/* La maniglia (la parte che si muove) */
-::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--blue-deep), var(--purple-violet));
-    border-radius: 5px;
-    border: 2px solid #050510; /* Crea spazio intorno */
-}
-
-/* Quando ci passi sopra col mouse */
-::-webkit-scrollbar-thumb:hover {
-    background: var(--blue-cyan);
-    box-shadow: 0 0 10px var(--blue-cyan); /* Effetto neon */
-}
-/* Colore di selezione del testo */
-::selection {
-    background: var(--purple-violet);
-    color: #fff;
-    text-shadow: 0 0 5px #fff;
-}
-/* Per Firefox */
-::-moz-selection {
-    background: var(--purple-violet);
-    color: #fff;
-}
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     min-height: 100vh;
     box-sizing: border-box;
-   font-family: var(--font-body);
-    
-    /* Sfondo con leggera sfumatura spaziale */
+    font-family: var(--font-body);
     background: radial-gradient(circle at center, #1a1a2e, #000);
-    color: var(--blue-soft); /* Colore testo base */
+    color: var(--blue-soft);
     overflow-x: hidden;
-    /* --- NUOVO CURSORE PERSONALIZZATO --- */
-    /* La sintassi è: url('percorso'), fallback; */
-    /* 'auto' serve nel caso l'immagine non si carichi */
+    /* Cursore Personalizzato */
     cursor: url('images/cursor.png'), auto;
-    /* style.css */
-
-/* Forza il tuo cursore su TUTTI gli elementi cliccabili */
-a, 
-button, 
-input, 
-textarea,
-.social-btn,       /* I tuoi pulsanti social */
-.poster-wrapper,   /* Le card dei lavori */
-.terminal-window,  /* Le finestre di coding */
-.identity-card,    /* Le card identità */
-.work-item {
-    /* IMPORTANTE: Usa le STESSE coordinate (es. 32 32) che hai messo nel body */
-    /* Altrimenti il cursore "salta" quando passi sopra un link */
-    cursor: url('images/cursor.png') , pointer !important;
-}
-}
-h1, h2, h3, nav a, .identity-card h1 {
-    font-family: var(--font-titles);
 }
 
-/* Navigazione */
-/* public/style.css - MENU CON EFFETTO SPERIMENTALE */
+/* Forza cursore su elementi cliccabili */
+a, button, input, textarea, .poster-wrapper, .social-list li a, .btn-explore {
+    cursor: url('images/cursor.png'), pointer !important;
+}
 
+h1, h2, h3, nav a { font-family: var(--font-titles); }
+
+
+/* --- 4. NAVIGAZIONE (EFFETTO SPERIMENTALE MANTENUTO) --- */
 nav {
-    position: fixed;
-    top: env(safe-area-inset-top);
-    width: 100%;
-    z-index: 1000;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
+    position: fixed; top: env(safe-area-inset-top); width: 100%; z-index: 1000;
+    padding: 20px; display: flex; justify-content: center;
     background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
     backdrop-filter: blur(5px);
 }
-
 nav ul {
-    list-style: none;
-    display: flex;
-    gap: 40px; /* Un po' più di spazio per l'effetto */
-    padding: 0;
-    margin: 0;
+    list-style: none; display: flex; gap: 30px; padding: 0; margin: 0; flex-wrap: wrap; justify-content: center;
 }
-
-/* STATO NORMALE (PULITO) */
 nav a {
-    font-family: var(--font-titles); /* Orbitron */
-    text-decoration: none;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    
-    /* Colore iniziale solido */
-    color: var(--blue-cyan);
-    font-weight: 400; /* Peso normale */
-    
-    /* Nessun bordo o ombra strana all'inizio */
-    -webkit-text-stroke: 0px transparent;
-    text-shadow: 0 0 5px var(--blue-deep); /* Solo un leggero bagliore */
-    
-    transition: all 0.3s ease; /* Transizione fluida */
+    text-decoration: none; font-size: 1rem; letter-spacing: 2px;
+    color: var(--blue-cyan); font-weight: 400;
+    text-shadow: 0 0 5px var(--blue-deep); transition: all 0.3s ease;
 }
-
-/* STATO HOVER (ESPLOSIONE SPERIMENTALE) */
 nav a:hover {
-    /* 1. Diventa grosso e cavo */
-    font-weight: 900; /* Cicciotto */
-    color: transparent; /* Interno trasparente */
-    -webkit-text-stroke: 1px var(--blue-cyan); /* Bordo Ciano */
-    
-    /* 2. L'ombra 3D Multi-livello (adattata alle dimensioni del menu) */
-    text-shadow: 
-        3px 3px 0px var(--blue-deep),
-        6px 6px 0px var(--purple-violet),
-        9px 9px 0px #f40468; /* Un tocco di rosa acceso per contrasto */
-        
-    /* 3. Leggero spostamento per compensare l'ombra */
-    transform: translate(-5px, -5px) scale(1.1);
+    font-weight: 900; color: transparent; -webkit-text-stroke: 1px var(--blue-cyan);
+    text-shadow: 3px 3px 0px var(--blue-deep), 6px 6px 0px var(--purple-violet);
+    transform: translate(-3px, -3px) scale(1.1);
 }
 
-/* SEZIONE 1: Canvas */
+
+/* --- 5. SEZIONE HERO (Canvas Particelle) --- */
 #hero {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    /* 1. Carica l'immagine (metti il nome del tuo file) */
+    height: 100vh; position: relative; display: flex; align-items: center; justify-content: center;
     background-image: url('images/universe-bg.jpg'); 
-    
-    /* 2. Fai in modo che copra tutto senza deformarsi */
-    background-size: cover; 
-    
-    /* 3. Centra l'immagine */
-    background-position: center; 
-    
-    /* 4. BLOCCALA (Opzionale): crea un effetto piacevole quando scrolli via */
-    background-attachment: fixed;
+    background-size: cover; background-position: center; background-attachment: fixed;
 }
-
-/* 5. IL TRUCCO DEL MENTORE: L'Overlay Scuro */
-/* Creiamo una tendina nera semitrasparente sopra la foto ma sotto le particelle */
 #hero::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6); /* 0.6 = 60% di nero */
-    z-index: 0; /* Sta sotto al canvas */
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); z-index: 0;
 }
+canvas { z-index: 1; }
 
-/* Assicuriamo che il canvas stia SOPRA l'immagine e l'overlay */
-canvas {
-    z-index: 1; 
-}
 
-/* SEZIONE 2: Parallasse Terra */
+/* --- 6. SEZIONE PARALLASSE (Terra & Glitch Text) --- */
 #parallax {
-    height: 100vh;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    /* border-top: 2px solid var(--blue-deep);
-    border-bottom: 2px solid var(--blue-deep);*/
+    height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-
 .parallax-bg {
-    /* --- MODIFICA QUESTA RIGA QUI SOTTO --- */
-    /* Assicurati che il nome tra virgolette sia ESATTAMENTE quello del tuo file */
     background-image: url('images/terra.jpg'); 
-    
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -1; /* Importante: sta DIETRO al testo */
-    background-attachment: fixed; /* Questo crea l'effetto parallasse su PC */
-    
-    /* Filtri per renderla spaziale e far leggere il testo sopra */
+    background-size: cover; background-position: center;
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: -1;
+    background-attachment: fixed;
     filter: brightness(0.4) contrast(1.2) saturate(1.2);
 }
-
 .content-box {
-    text-align: center;
-    z-index: 1;
-    background: rgba(0,0,0,0.6);
-    padding: 40px;
-    border: 1px solid var(--blue-purple);
-    box-shadow: 0 0 20px rgba(45, 126, 224, 0.2); /* Bagliore blu */
-}
-.content-box h2 {
-    font-size: 3rem;
-    letter-spacing: 5px;
-    margin-bottom: 0;
-    color: var(--blue-cyan);
-    text-shadow: 0 0 10px var(--blue-azure);
-}
-.subtitle {
-    font-size: 0.9rem;
-    color: var(--blue-soft);
-    max-width: 600px;
-    margin: 10px auto;
-    font-style: italic;
+    text-align: center; z-index: 1; background: rgba(0,0,0,0.6); padding: 40px;
+    border: 1px solid var(--blue-purple); box-shadow: 0 0 20px rgba(45, 126, 224, 0.2);
 }
 
-/* SEZIONE 3: Identità Sticky */
-/* public/style.css - FIX SCROLLING IDENTITÀ */
+/* Glitch Text (MANTENUTO) */
+.glitch-text {
+    position: relative; margin: 0 auto 10px auto; font-size: 4em; font-family: var(--font-titles);
+    color: transparent; text-transform: uppercase; line-height: 1; cursor: pointer;
+}
+.glitch-text span:nth-child(1) { position: absolute; top: 0; left: 0; width: 100%; color: #fff; transition: transform 0.5s; clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%); overflow: hidden; text-shadow: 0 0 10px var(--blue-deep); }
+.glitch-text:hover span:nth-child(1) { transform: translateY(-20px); color: var(--blue-cyan); }
+.glitch-text span:nth-child(2) { position: absolute; top: 0; left: 0; width: 100%; color: #fff; transition: transform 0.5s; clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%); overflow: hidden; text-shadow: 0 0 10px var(--blue-deep); }
+.glitch-text:hover span:nth-child(2) { transform: translateY(20px); color: var(--blue-cyan); }
+.glitch-text span:nth-child(3) { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scaleY(0); width: 100%; background: var(--purple-violet); color: #fff; font-family: var(--font-body); font-size: 0.25em; font-weight: 700; letter-spacing: 0.5em; text-align: center; padding: 5px 0; transition: transform 0.5s; box-shadow: 0 0 20px var(--purple-violet); z-index: 2; }
+.glitch-text:hover span:nth-child(3) { transform: translate(-50%, -50%) scaleY(1); }
+.subtitle { font-size: 0.9rem; color: var(--blue-soft); max-width: 600px; margin: 10px auto; font-style: italic; }
 
-#identity-section {
+
+/* --- 7. THE LANDING (NUOVA STRUTTURA PER ABOUT, WORK, SOCIAL) --- */
+
+/* Stile comune per le 3 sezioni (Sfondo fisso + Overlay) */
+.landing-stage {
     position: relative;
-    
-    /* 1. IL NUOVO SFONDO GRADIENTE (Che ti piace) */
-    background: linear-gradient(180deg,#2D7EE0, #4E2DE0, #2D45E0, #2DB7E0, #8A2DE0, #7785E0);
-    background-size: 100% 300%;
-    animation: bg-pan-bottom 15s infinite alternate both;
-    
-    /* 2. LA REGOLA FONDAMENTALE MANCANTE (L'Altezza) */
-    /* Deve essere molto alto per permettere lo scroll interno! */
-    height: 350vh; 
-    
-    z-index: 1; 
-}
-
-/* Il contenitore che "blocca" le carte allo schermo */
-.sticky-container {
-    position: sticky; /* Si incolla allo schermo */
-    top: 0;
+    min-height: 100vh;
     width: 100%;
-    height: 100vh; /* Alto quanto lo schermo */
+    /* Parallasse */
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
     
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    justify-content: center;
     
-    overflow: hidden; /* Nasconde ciò che esce */
-}
-/* --- NUOVO STILE IDENTITÀ (Schede Rettangolari) --- */
-
-/* La card occupa quasi tutto lo schermo ma è centrata */
-.identity-card {
-    position: absolute;
-    opacity: 0;
-    transition: all 0.8s ease;
-    width: 100%;
-    max-width: 1000px; /* Non più largo di così su PC */
-    padding: 20px;
-    
-    /* Effetto sfocato iniziale */
-    transform: scale(0.95) translateY(30px);
-    filter: blur(10px);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
 }
 
-/* Quando diventa attiva */
-.identity-card.active {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    filter: blur(0);
+/* Overlay scuro per leggere il testo sopra le immagini */
+.landing-stage::before {
+    content: '';
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* 60% scuro */
+    z-index: 0;
 }
 
-/* Contenitore interno che allinea Foto e Testo */
-.card-content {
-    display: flex; /* Mette gli elementi uno a fianco all'altro */
-    align-items: center; /* Centra verticalmente */
-    justify-content: center;
-    gap: 50px; /* Spazio tra foto e testo */
-    background: rgba(255, 255, 255, 0.05); /* Leggero sfondo vetro */
-    padding: 40px;
-    border-radius: 20px;
-    border: 1px solid var(--blue-deep);
-    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+/* Assicura che il contenuto stia sopra l'overlay */
+.landing-stage > * { position: relative; z-index: 2; }
+
+
+/* --- LIVELLO 1: ORBITA (About Me) --- */
+#identity-section {
+    background-image: url('images/bg-level-1.jpg'); /* Vulcano */
+}
+
+/* Titolo col tuo FONT CUSTOM */
+#identity-section h2 {
+    font-family: var(--font-custom), var(--font-titles); /* Fallback su Orbitron */
+    font-size: 4rem;
+    margin-bottom: 20px;
+    text-shadow: 0 0 20px var(--blue-deep);
+}
+
+/* Bottone Esplora */
+.btn-explore {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 15px 40px;
+    background: rgba(45, 183, 224, 0.1);
+    border: 2px solid var(--blue-cyan);
+    color: var(--blue-cyan);
+    font-family: var(--font-titles);
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
     backdrop-filter: blur(5px);
 }
-
-/* Stile delle Foto */
-.id-photo {
-    max-width: 400px; /* Larghezza massima foto */
-    max-height: 500px; /* Altezza massima */
-    width: 100%; /* Si adatta se lo spazio è poco */
-    height: auto; /* Mantiene le proporzioni originali! Niente stiramenti */
-    object-fit: cover; /* Assicura che si veda tutta la foto */
-    border-radius: 15px; /* Angoli arrotondati eleganti */
-    box-shadow: 10px 10px 0px var(--purple-violet); /* Ombra solida stilosa */
-    border: 2px solid #fff;
+.btn-explore:hover {
+    background: var(--blue-cyan);
+    color: #000;
+    box-shadow: 0 0 30px var(--blue-cyan);
+    transform: scale(1.05);
 }
+/* --- STILE NUOVA IDENTITÀ (Matteo / Teo Zen / Matcore) --- */
 
-/* Stile del Testo */
-.text-content {
-    flex: 1; /* Il testo occupa tutto lo spazio rimanente */
-    text-align: left; /* Testo allineato a sinistra su PC */
-}
-
-.text-content h1 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    color: var(--blue-cyan);
-    text-shadow: 0 0 15px var(--blue-deep);
-    line-height: 1;
-}
-
-.text-content .bio {
-    font-size: 1.2rem;
-    color: #ddd;
-    line-height: 1.6;
-}
-
-/* --- VERSIONE MOBILE (Impilata) --- */
-@media (max-width: 768px) {
-    .card-content {
-        flex-direction: column; /* Impila verticalmente: Foto sopra, testo sotto */
-        gap: 20px;
-        padding: 20px;
-        text-align: center; /* Testo centrato su mobile */
-    }
-    
-    .text-content {
-        text-align: center;
-    }
-
-    .id-photo {
-        max-width: 100%; /* La foto usa tutta la larghezza del telefono */
-        max-height: 300px; /* Limitiamo l'altezza sennò si deve scrollare troppo */
-        object-fit: cover; /* Su mobile ritagliamo leggermente per riempire bene */
-        margin-bottom: 10px;
-    }
-
-    .text-content h1 {
-        font-size: 2rem; /* Titolo più piccolo */
-    }
-    
-    .text-content .bio {
-        font-size: 1rem;
-    }
-}
-
-/* SEZIONE 4: Lavori */
-/* public/style.css - NUOVO STILE WORK (POSTER EFFECT) */
-
-#work {
+/* Contenitore centrale del testo */
+.identity-text-box {
     position: relative;
-    z-index: 100;
-    
-    padding: 100px 20px;
-    min-height: 100vh;
-    box-shadow: 0 -20px 50px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    /* --- STESSO SFONDO ANIMATO (Per continuità) --- */
-    background: linear-gradient(180deg, #24243e, #302b63, #0f0c29);
-    background-size: 100% 300%;
-    animation: bg-pan-bottom 15s infinite alternate both;
-}
-
-#work h2 {
-    color: var(--blue-cyan);
-    font-size: 3rem;
-    margin-bottom: 80px;
-    text-shadow: 0 0 20px var(--blue-purple);
+    z-index: 10; /* Sta sopra le immagini che volano */
     text-align: center;
+    pointer-events: auto; /* Permette di cliccare il link */
 }
 
-/* Contenitore generale che impila i progetti */
-.work-container {
-    display: flex;
-    flex-direction: column;
-    gap: 60px; /* Spazio tra un progetto e l'altro */
-    width: 100%;
-    max-width: 900px; /* Larghezza massima dell'area */
-}
-
-/* --- L'EFFETTO SPECIALE --- */
-
-.poster-wrapper {
-    position: relative;
-    height: 300px;
-    width: 100%; /* Occupa tutto lo spazio disponibile */
-    display: flex;
-    flex-direction: row;
-    text-decoration: none; /* Toglie la riga blu dai link */
-    cursor: pointer;
-    transition: all 400ms ease-in-out;
-}
-
-/* Il contenitore dell'immagine (La finestra) */
-.poster-image {
-    height: 300px;
-    width: 450px; /* Larghezza iniziale */
-    overflow: hidden; /* Maschera ciò che esce */
-    border-radius: 5px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 1px solid var(--blue-deep);
-    transition: all 400ms ease-in-out;
-    position: relative;
-    z-index: 2; /* Sta sopra */
-}
-
-/* L'immagine vera e propria */
-.poster-image img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: all 400ms ease-in-out;
-    filter: grayscale(80%); /* Inizia in bianco e nero (stile dark) */
-}
-
-/* Il contenitore del Testo (A destra) */
-/* public/style.css - FIX TESTO TAGLIATO */
-
-/* Il contenitore del Testo (A destra) */
-.poster-header {
-    position: absolute;
-    left: 400px; 
-    top: 0;
-    height: 300px; /* Altezza fissa fondamentale */
-    width: 400px; 
-    overflow: hidden; /* Nasconde ciò che esce */
-    
-    /* Rimuoviamo il padding che potrebbe spingere il testo fuori */
-    padding: 0; 
-    padding-left: 50px; /* Solo spazio a sinistra */
-    
-    z-index: 1; 
-    pointer-events: none; /* Trucco: così il mouse non "sfarfalla" se tocchi il testo */
-}
-
-/* Il carrello che fa scorrere i titoli */
-.titles-slide {
-    display: flex;
-    flex-direction: column;
-    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Movimento più fluido */
-}
-
-/* STILE DEL TESTO (CORRETTO) */
-.titles-slide h3 {
-    /* Misure della "scatola" del titolo */
-    display: flex;          /* Usiamo Flexbox... */
-    align-items: center;    /* ...per centrare verticalmente in modo perfetto */
-    justify-content: flex-start; /* Allineato a sinistra */
-    
-    height: 300px; /* Deve essere identico all'altezza del contenitore */
-    width: 100%;
-    
-    margin: 0; /* Rimuoviamo margini di default che spostano il testo */
-    padding: 0;
-    
-    /* Stile Font */
-    font-size: 50px; /* Riduciamo leggermente da 60 a 50 per sicurezza */
-    font-family: var(--font-titles);
-    text-transform: uppercase;
+/* Il Titolo Grande */
+.identity-title {
+    font-family: var(--font-custom); /* Usa tzfont */
+    font-size: clamp(2.5rem, 6vw, 6rem); /* Grande ma responsive */
+    line-height: 1.2;
     color: #fff;
-    white-space: nowrap; 
-    transition: all 400ms ease-in-out;
+    margin: 0;
+    text-shadow: 0 0 20px rgba(45, 126, 224, 0.8); /* Bagliore Blu */
 }
 
-/* --- ANIMAZIONI HOVER (La Magia) --- */
+/* Stilizza la parola "aka" per renderla più elegante (opzionale) */
+.identity-title .aka {
+    font-size: 0.5em; /* Metà grandezza */
+    color: var(--blue-cyan);
+    vertical-align: middle;
+    font-family: var(--font-body); /* Montserrat per contrasto o usa custom se preferisci */
+    opacity: 0.8;
+}
 
-/* public/style.css - VERSIONE "OVERLAP ARTISTICO" */
-
-.poster-wrapper {
-    position: relative;
-    height: 300px;
-    width: 100%;
-    margin-bottom: 80px; /* Spazio verticale tra i progetti */
-    display: flex;
-    align-items: center; /* Centra verticalmente */
+/* Il Link "Vuoi conoscermi meglio?" */
+.identity-link {
+    display: inline-block;
+    margin-top: 30px;
+    font-family: var(--font-custom); /* Usa tzfont */
+    font-size: 1.5rem; /* Più piccolo del titolo */
+    color: var(--blue-cyan);
     text-decoration: none;
-    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+    padding-bottom: 5px;
 }
 
-/* 1. L'IMMAGINE (Sta SOTTO il testo: z-index 1) */
-.poster-image {
-    height: 300px;
-    width: 400px; /* Larghezza partenza */
-    
-    /* Posizionamento */
-    position: absolute; 
-    left: 0; 
-    
-    overflow: hidden;
-    border-radius: 4px;
-    border: 1px solid var(--blue-deep);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Movimento fluido */
-    
-    /* Filtri iniziali */
-    filter: grayscale(100%) brightness(0.6); 
-    z-index: 1; /* LIVELLO 1: Fondo */
-}
-
-.poster-image img {
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-}
-
-/* 2. IL TESTO (Sta SOPRA l'immagine: z-index 2) */
-.poster-header {
-    position: absolute;
-    left: 250px; /* TRUCCO: Parte già sovrapposto all'immagine (400 - 250 = overlap) */
-    top: 0;
-    height: 300px;
-    width: 600px; /* Abbastanza largo per il testo enorme */
-    overflow: hidden; /* Nasconde il testo che esce (See Project) */
-    pointer-events: none; /* Il mouse passa attraverso il testo per attivare l'immagine */
-    z-index: 2; /* LIVELLO 2: Sopra */
-}
-
-.titles-slide {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-}
-
-/* TITOLO 1: ENORME (CODING) */
-.titles-slide h3:nth-child(1) {
-    display: flex;
-    align-items: center;
-    height: 300px; /* Occupa tutto lo spazio */
-    
-    font-size: 100px; /* GIGANTE */
-    font-family: var(--font-titles);
-    font-weight: 900; /* Molto spesso */
-    letter-spacing: -2px; /* Lettere vicine */
+.identity-link:hover {
     color: #fff;
-    
-    /* Ombra per staccarlo dall'immagine sotto */
-    text-shadow: 5px 5px 0px rgba(0,0,0,0.5); 
-    opacity: 1;
-    transition: opacity 0.3s;
+    border-bottom: 2px solid var(--blue-cyan);
+    text-shadow: 0 0 15px var(--blue-cyan);
+    transform: translateY(-3px);
 }
 
-/* TITOLO 2: CALL TO ACTION (SEE PROJECT) */
-.titles-slide h3:nth-child(2) {
-    display: flex;
-    align-items: center;
-    height: 300px;
-    
-    /* --- STILE AGGIORNATO --- */
-    font-size: 32px;        /* Molto più grande e leggibile */
-    font-family: var(--font-titles); /* Usiamo lo stesso font del titolo per coerenza */
-    font-weight: 900;       /* Grassetto massimo */
-    color: #ffffff;         /* Bianco puro */
-    letter-spacing: 1px;    /* Spaziatura più stretta per impatto */
-    text-transform: uppercase;
-    
-    /* --- ALLINEAMENTO --- */
-    padding-left: 0;        /* RIMOSSO: Ora è allineato a sinistra col titolo sopra */
-    justify-content: flex-start; 
-    
-    /* Ombra per leggerlo bene sopra qualsiasi foto */
-    text-shadow: 2px 2px 0px var(--blue-deep), 0 0 20px rgba(0,0,0,0.8);
-    
-    /* Opzionale: se vuoi che sia proprio attaccato al bordo sinistro dell'immagine */
-    /* margin-left: -20px; */ 
+
+/* --- LIVELLO 2: ATMOSFERA (Work) --- */
+#work {
+    background-image: url('images/bg-level-2.jpg'); /* Cascate/Nebbia */
+    justify-content: flex-start; /* Contenuto parte dall'alto */
+    padding-top: 100px;
+}
+#work h2 {
+    color: var(--blue-cyan); font-size: 3rem; margin-bottom: 60px; text-shadow: 0 0 20px var(--blue-purple);
 }
 
-/* --- ANIMAZIONI HOVER --- */
+/* POSTER EFFECT (MANTENUTO DAL TUO VECCHIO CSS) */
+.work-container { display: flex; flex-direction: column; gap: 60px; width: 100%; max-width: 900px; }
+.poster-wrapper { position: relative; height: 300px; width: 100%; margin-bottom: 80px; display: flex; align-items: center; text-decoration: none; cursor: pointer; }
+.poster-image { height: 300px; width: 400px; position: absolute; left: 0; overflow: hidden; border-radius: 4px; border: 1px solid var(--blue-deep); transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); filter: grayscale(100%) brightness(0.6); z-index: 1; }
+.poster-image img { height: 100%; width: 100%; object-fit: cover; transition: transform 0.6s ease; }
+.poster-header { position: absolute; left: 250px; top: 0; height: 300px; width: 600px; overflow: hidden; pointer-events: none; z-index: 2; }
+.titles-slide { display: flex; flex-direction: column; transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.titles-slide h3 { display: flex; align-items: center; height: 300px; width: 100%; margin: 0; padding: 0; font-family: var(--font-titles); text-transform: uppercase; color: #fff; white-space: nowrap; transition: all 400ms ease-in-out; }
+/* Titolo 1 (Grande) */
+.titles-slide h3:nth-child(1) { font-size: 100px; font-weight: 900; letter-spacing: -2px; text-shadow: 5px 5px 0px rgba(0,0,0,0.5); }
+/* Titolo 2 (Call to Action) */
+.titles-slide h3:nth-child(2) { font-size: 32px; font-weight: 900; letter-spacing: 1px; justify-content: flex-start; text-shadow: 2px 2px 0px var(--blue-deep), 0 0 20px rgba(0,0,0,0.8); }
 
-/* L'immagine si allarga e prende colore */
-.poster-wrapper:hover .poster-image {
-    width: 750px; /* Si espande molto */
-    border-color: var(--blue-cyan);
-    filter: grayscale(0%) brightness(1); /* Diventa colorata e luminosa */
-    box-shadow: 0 0 50px rgba(45, 183, 224, 0.15);
+/* Hover Work */
+.poster-wrapper:hover .poster-image { width: 750px; border-color: var(--blue-cyan); filter: grayscale(0%) brightness(1); box-shadow: 0 0 50px rgba(45, 183, 224, 0.15); }
+.poster-wrapper:hover .poster-image img { transform: scale(1.1); }
+.poster-wrapper:hover .titles-slide { transform: translateY(-300px); }
+
+
+/* --- LIVELLO 3: TERRA (Social) --- */
+#contact {
+    background-image: url('images/bg-level-3.jpg'); /* Foresta */
+}
+#contact h2 { font-family: var(--font-titles); margin-bottom: 40px; }
+
+/* SOCIAL ICONS (MANTENUTE DAL TUO VECCHIO CSS) */
+.social-list { display: flex; padding: 0; margin: 0; gap: 20px; flex-wrap: wrap; justify-content: center; }
+.social-list li { list-style: none; }
+.social-list li a { width: 60px; height: 60px; background-color: #fff; text-align: center; line-height: 60px; font-size: 25px; display: block; border-radius: 50%; position: relative; overflow: hidden; border: 3px solid #fff; z-index: 1; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+.social-list li a .icon { position: relative; color: #262626; transition: .5s; z-index: 3; display: inline-block; vertical-align: middle; line-height: normal; }
+.social-list li a:hover .icon { color: #fff; transform: rotateY(360deg); }
+.social-list li a:before { content: ""; position: absolute; top: 100%; left: 0; width: 100%; height: 100%; transition: .5s; z-index: 2; }
+.social-list li a:hover:before { top: 0; }
+/* Colori Specifici Social */
+.social-list li:nth-child(1) a:before { background: #e4405f; } /* IG */
+.social-list li:nth-child(2) a:before { background: #3b5999; } /* FB */
+.social-list li:nth-child(3) a:before { background: #cd201f; } /* YT */
+.social-list li:nth-child(4) a:before { background: #ffb900; } /* Mail */
+
+
+/* --- FOOTER --- */
+footer {
+    text-align: center; padding: 30px; background-color: #000; color: var(--blue-soft);
+    border-top: 1px solid var(--blue-deep); font-weight: bold; letter-spacing: 1px;
 }
 
-/* Zoom interno foto */
-.poster-wrapper:hover .poster-image img {
-    transform: scale(1.1);
-}
-
-/* Slide del testo verso l'alto */
-.poster-wrapper:hover .titles-slide {
-    transform: translateY(-300px); /* Mostra il secondo titolo */
-}
-
-/* --- MOBILE FIX --- */
+/* --- MOBILE FIXES --- */
 @media (max-width: 900px) {
-    .poster-wrapper {
-        flex-direction: column;
-        height: auto;
-        margin-bottom: 50px;
-    }
-    .poster-image {
-        position: relative; width: 100%; height: 250px; left: 0;
-    }
-    .poster-header {
-        position: relative; left: 0; width: 100%; height: auto;
-        margin-top: -40px; /* Sovrapposizione verticale su mobile */
-    }
-    .titles-slide h3:nth-child(1) {
-        font-size: 50px; height: auto; text-shadow: 0 0 10px #000;
-        justify-content: center;
-    }
-    .titles-slide h3:nth-child(2) {
-        display: none; /* Niente slide su mobile */
-    }
+    /* Mobile Parallasse Fix */
+    .landing-stage, .parallax-bg { background-attachment: scroll; }
+    
+    .glitch-text { font-size: 2.5rem; }
+    #identity-section h2 { font-size: 2.5rem; }
+    
+    /* Mobile Work Posters */
+    .poster-wrapper { flex-direction: column; height: auto; margin-bottom: 50px; }
+    .poster-image { position: relative; width: 100%; height: 250px; left: 0; }
+    .poster-header { position: relative; left: 0; width: 100%; height: auto; margin-top: -40px; padding-left: 0; }
+    .titles-slide h3:nth-child(1) { font-size: 40px; height: auto; text-shadow: 0 0 10px #000; justify-content: center; }
+    .titles-slide h3:nth-child(2) { display: none; }
     .poster-wrapper:hover .poster-image { width: 100%; }
     .poster-wrapper:hover .titles-slide { transform: none; }
 }
+/* style.css - AGGIUNGI IN FONDO */
 
+/* --- GSAP IMAGE TRAIL EFFECT --- */
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 30px;
-    background-color: #000;
-    color: var(--blue-soft);
-    border-top: 1px solid var(--blue-purple);
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-/* --- RESPONSIVE DESIGN (MOBILE) --- */
-@media (max-width: 768px) {
-    
-    /* Navigazione più compatta */
-    nav ul {
-        gap: 15px;
-        font-size: 0.7rem;
-    }
-    
-    /* Titoli più piccoli per non "urlare" in faccia all'utente */
-    .content-box h2 {
-        font-size: 1.8rem;
-        letter-spacing: 2px;
-    }
-    
-    /* Identità: riduciamo la foto e il testo */
-    .photo-frame {
-        width: 150px;
-        height: 150px;
-    }
-    .identity-card h1 {
-        font-size: 1.8rem;
-    }
-    .bio {
-        font-size: 0.9rem;
-        padding: 0 15px; /* Margine laterale per non toccare i bordi */
-    }
-
-    /* Griglia lavori: 1 colonna su mobile */
-    .gallery {
-        grid-template-columns: 1fr; 
-    }
-    
-    /* Parallasse mobile: su alcuni telefoni 'fixed' dà problemi, lo semplifichiamo */
-    .parallax-bg {
-        background-attachment: scroll; 
-    }
-}
-/* --- EFFETTO GLITCH TEXT (EVERYTHING AND NOTHING) --- */
-
-/* Contenitore del testo */
-.glitch-text {
-    position: relative;
-    margin: 0 auto 20px auto; /* Centrato */
-    padding: 0;
-    font-size: 6em; /* Grandezza base PC */
-    font-family: var(--font-titles); /* Usa il font Orbitron che abbiamo scelto */
-    color: transparent; /* Il testo base è invisibile, vediamo solo gli span */
-    text-transform: uppercase;
-    line-height: 1; /* Importante per allineare i tagli */
-    cursor: pointer; /* Fa capire che si può interagire */
-}
-
-/* SPAN 1: La metà superiore */
-.glitch-text span:nth-child(1) {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    color: #fff; /* Colore testo normale */
-    transition: transform 0.5s;
-    /* Taglia la parte bassa */
-    clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
-    overflow: hidden;
-    text-shadow: 0 0 10px var(--blue-deep); /* Bagliore */
-}
-
-/* Hover Span 1: Si sposta in alto */
-.glitch-text:hover span:nth-child(1) {
-    transform: translateY(-20px);
-    color: var(--blue-cyan); /* Cambia colore quando si apre */
-}
-
-/* SPAN 2: La metà inferiore */
-.glitch-text span:nth-child(2) {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    color: #fff;
-    transition: transform 0.5s;
-    /* Taglia la parte alta */
-    clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
-    overflow: hidden;
-    text-shadow: 0 0 10px var(--blue-deep);
-}
-
-/* Hover Span 2: Si sposta in basso */
-.glitch-text:hover span:nth-child(2) {
-    transform: translateY(20px);
-    color: var(--blue-cyan);
-}
-
-/* SPAN 3: Il messaggio segreto centrale (AND NOTHING) */
-.glitch-text span:nth-child(3) {
-    position: absolute;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%) scaleY(0); /* Parte schiacciato (invisibile) */
-    width: 100%; 
-    
-    /* Stile della barra centrale */
-    background: var(--purple-violet); 
-    color: #fff;
-    
-    font-family: var(--font-body); /* Usiamo il font più leggibile per il piccolo testo */
-    font-size: 0.25em; /* Più piccolo del titolo */
-    font-weight: 700;
-    letter-spacing: 0.5em;
-    text-align: center;
-    padding: 5px 0;
-    transition: transform 0.5s;
-    box-shadow: 0 0 20px var(--purple-violet); /* Bagliore viola */
-    z-index: 2;
-}
-
-/* Hover Span 3: Si espande e diventa visibile */
-.glitch-text:hover span:nth-child(3) {
-    transform: translate(-50%, -50%) scaleY(1);
-}
-
-/* --- ADATTAMENTO MOBILE --- */
-@media (max-width: 768px) {
-    .glitch-text {
-        font-size: 3em; /* Riduciamo drasticamente su mobile */
-    }
-    
-    /* Riduciamo lo spostamento su schermi piccoli */
-    .glitch-text:hover span:nth-child(1) { transform: translateY(-10px); }
-    .glitch-text:hover span:nth-child(2) { transform: translateY(10px); }
-}
-/* public/style.css - NUOVI SOCIAL (Circle Fill Effect) */
-
-#contact {
-    position: relative;
-    background: #000; /* Fondo nero */
-    padding: 80px 0; /* Spazio sopra e sotto */
-    border-top: 1px solid var(--blue-deep);
-    z-index: 100;
+.Hero {
+    /* Mantiene le proprietà della tua landing-stage ma centra tutto */
     display: flex;
-    justify-content: center; /* Centra la lista orizzontalmente */
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    overflow: hidden; /* Importante per non creare barre di scorrimento indesiderate */
 }
 
-/* La lista (Contenitore pulsanti) */
-.social-list {
-    display: flex;
-    padding: 0;
-    margin: 0;
-    gap: 20px; /* Spazio tra i pulsanti */
-    flex-wrap: wrap; /* Su mobile vanno a capo se serve */
+/* Stile del Titolo Grande */
+.heading-xl {
+    font-family: var(--font-custom), var(--font-titles); /* Usa il tuo font alieno */
+    font-size: clamp(3rem, 10vw, 8rem); /* Si adatta allo schermo */
+    font-weight: 900;
+    line-height: 1.1;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,0.8); /* Bordo bianco */
+    text-shadow: 0 0 30px var(--blue-deep);
+    z-index: 10; /* Sta sopra le immagini che cadono */
+    pointer-events: none; /* Il mouse ci passa attraverso */
 }
 
-.social-list li {
-    list-style: none;
-}
-
-/* Il Cerchio Bianco */
-.social-list li a {
-    width: 60px;  /* Ho ridotto un po' da 80px perché erano enormi */
-    height: 60px;
-    background-color: #fff;
+.Hero__text {
     text-align: center;
-    line-height: 60px; /* Deve essere uguale all'altezza per centrare l'icona */
-    font-size: 25px;   /* Grandezza icona */
-    display: block;
-    border-radius: 50%;
     position: relative;
-    overflow: hidden;
-    border: 3px solid #fff;
-    z-index: 1;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Leggera ombra */
 }
 
-/* L'icona dentro */
-.social-list li a .icon {
-    position: relative;
-    color: #262626; /* Colore scuro iniziale */
-    transition: .5s;
-    z-index: 3;
-    /* Fix per centratura perfetta FontAwesome */
-    display: inline-block;
-    vertical-align: middle;
-    line-height: normal; 
-}
-
-/* Hover: L'icona diventa bianca e ruota */
-.social-list li a:hover .icon {
-    color: #fff;
-    transform: rotateY(360deg);
-}
-
-/* Il Colore che sale dal basso (Pseudo-elemento) */
-.social-list li a:before {
-    content: "";
-    position: absolute;
-    top: 100%; /* Parte nascosto sotto */
-    left: 0;
-    width: 100%;
-    height: 100%;
-    /* background: viene definito sotto per ogni social */
-    transition: .5s;
-    z-index: 2;
-}
-
-/* Hover: Il colore sale */
-.social-list li a:hover:before {
+/* Le immagini del trail */
+.Hero__image {
+    position: fixed; /* Si muovono rispetto alla finestra, non alla sezione */
     top: 0;
+    left: 0;
+    opacity: 0; /* Invisibili all'inizio */
+    width: 150px; /* Grandezza foto */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid var(--blue-cyan);
+    box-shadow: 0 0 20px var(--blue-deep);
+    z-index: 5; /* Stanno sopra allo sfondo ma sotto al titolo */
+    pointer-events: none; /* Non bloccano i click */
+}
+/* public/style.css - AGGIUNGI IN FONDO */
+
+/* --- IMPORTAZIONE FONT MONA SANS (Per l'effetto Social) --- */
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap");
+
+/* --- NUOVO STILE SOCIAL CINETICO --- */
+
+.social-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    align-items: center;
+    /* Rimuoviamo qualsiasi interferenza ereditata */
+    position: relative; 
+    width: 100%;
+    z-index: 10;
 }
 
-/* --- COLORI SPECIFICI PER OGNI SOCIAL --- */
+/* Lo stile del Link */
+/* public/style.css - Aggiornamento per Justified Block */
 
-/* 1. Instagram (Gradiente o Rosso/Viola) */
-.social-list li:nth-child(1) a:before {
-    background: #e4405f; 
+a.social-split {
+    color: #f4f4ed; 
+    display: flex;
+    justify-content: space-between; /* Aiuta a distribuire se usiamo flex */
+    font-family: "Mona Sans", sans-serif;
+    
+    /* Grandezza Fissa per tutti: Questo crea l'altezza uniforme del blocco */
+    font-size: 3.5rem; 
+    
+    font-style: normal;
+    
+    /* QUI LA MAGIA: Colleghiamo le variabili HTML al motore del font */
+    font-variation-settings: "wdth" var(--font-width, 100);
+    font-weight: 900; 
+    
+    /* Colleghiamo anche il letter-spacing */
+    letter-spacing: var(--letter-spacing, 0);
+    
+    line-height: 0.85; /* Molto compatto per sembrare un blocco unico */
+    overflow: hidden; 
+    text-decoration: none;
+    text-shadow: 0 0.85em 0 var(--blue-cyan); /* Ombra precisa */
+    text-transform: uppercase;
+    cursor: pointer;
+    
+    /* Impedisce che il testo vada a capo su mobile */
+    white-space: nowrap;
 }
 
-/* 2. Facebook (Blu) */
-.social-list li:nth-child(2) a:before {
-    background: #3b5999;
-}
-
-/* 3. Youtube (Rosso) */
-.social-list li:nth-child(3) a:before {
-    background: #cd201f;
-}
-
-/* 4. Mail (Giallo/Oro per staccare o Grigio) */
-.social-list li:nth-child(4) a:before {
-    background: #ffb900; 
-}
-
-/* --- ADATTAMENTO MOBILE --- */
+/* Adattamento Mobile */
 @media (max-width: 768px) {
-    .social-list {
-        gap: 15px;
-    }
-    .social-list li a {
-        width: 50px;
-        height: 50px;
-        line-height: 50px;
-        font-size: 20px;
+    a.social-split {
+        font-size: 13vw; /* Su mobile il testo scala con la larghezza dello schermo! */
     }
 }
-/* --- MOTORE ANIMAZIONE SFONDO --- */
-@-webkit-keyframes bg-pan-bottom {
-  0% { background-position: 50% 0%; }
-  100% { background-position: 50% 100%; }
+
+/* Lo stile delle singole lettere (generate via JS) */
+a.social-split span {
+    display: inline-block; /* Fondamentale per muoverle */
+    transition: transform 300ms cubic-bezier(0.2, 0, 0.5, 1);
+    transform: translateY(0); /* Posizione iniziale */
+    
+    /* Calcolo del ritardo a cascata basato sull'indice della lettera */
+    transition-delay: calc(40ms + var(--char-index, 0) * 20ms);
 }
-@keyframes bg-pan-bottom {
-  0% { background-position: 50% 0%; }
-  100% { background-position: 50% 100%; }
+
+/* --- ANIMAZIONE HOVER --- */
+/* Quando passi sopra il link, sposta le lettere in alto */
+a.social-split:hover span {
+    transform: translateY(-1em); /* Sale di una riga, mostrando l'ombra colorata */
+}
+
+/* Adattamento Mobile */
+@media (max-width: 768px) {
+    a.social-split {
+        font-size: 2rem; /* Un po' più piccoli su telefono */
+    }
 }
