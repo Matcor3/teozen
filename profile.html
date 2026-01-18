@@ -20,21 +20,23 @@
 
         /* 2. LO SFONDO (La Scrivania) */
         body {
-            background-color: #1a1a1a; /* Scrivania scura */
-            background-image: radial-gradient(#2a2a2a 1px, transparent 1px); /* Texture puntini */
-            background-size: 20px 20px;
-            
-            /* QUI IMPONIAMO IL TUO FONT OVUNQUE */
-            font-family: 'TzFont', sans-serif !important; 
-            
-            margin: 0;
-            padding: 40px 20px;
-            color: #333;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center; /* Centra il foglio */
-            align-items: flex-start;
-        }
+    background-color: #1a1a1a;
+    background-image: radial-gradient(#2a2a2a 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-attachment: fixed; /* Lo sfondo sta fermo mentre scrolli */
+    
+    font-family: 'TzFont', sans-serif !important;
+    
+    margin: 0;
+    padding: 0; /* Rimuoviamo padding dal body per evitare spostamenti */
+    min-height: 100vh;
+    
+    /* IL MOTORE DI ALLINEAMENTO */
+    display: flex;
+    flex-direction: column; /* Impila gli elementi verticalmente */
+    align-items: center;    /* CENTRA TUTTO ORIZZONTAMENTE */
+    overflow-x: hidden;     /* Evita scroll laterale indesiderato */
+}
 
         /* PULSANTE INDIETRO (Stile scarabocchio) */
         .back-link {
@@ -52,27 +54,52 @@
 
         /* 3. IL FOGLIO DI CARTA */
         .diary-paper {
-            background-color: #fdfbf7; /* Colore carta avorio */
-            width: 100%;
-            max-width: 800px; /* Larghezza massima lettura */
-            min-height: 100vh;
-            padding: 60px;
-            box-sizing: border-box;
-            
-            /* Effetto Ombra (Foglio sollevato) */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            
-            /* Effetto Righe del quaderno */
-            background-image: repeating-linear-gradient(
-                transparent,
-                transparent 39px,
-                #94a3b8 40px /* Riga azzurrina */
-            );
-            
-            position: relative;
-            transform: rotate(-1deg); /* Leggera inclinazione imperfetta */
-        }
+    background-color: #fdfbf7;
+    width: 100%;
+    max-width: 800px;
+    min-height: 100vh;
+    padding: 60px;
+    box-sizing: border-box;
+    
+    /* CENTRATURA EXTRA SICURA */
+    margin: 50px auto; /* 50px sopra/sotto, AUTO ai lati (centra) */
+    
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    
+    background-image: repeating-linear-gradient(
+        transparent,
+        transparent 39px,
+        #94a3b8 40px
+    );
+    
+    position: relative;
+    transform: rotate(-1deg);
+    z-index: 5; /* Sta sopra allo sfondo */
+}
+/* LA SEZIONE CARD (SOTTO AL DIARIO) */
+.final-summary {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centra il titolo e la griglia */
+    
+    /* Spazio per staccarsi dal diario */
+    margin-top: 50px; 
+    padding-bottom: 100px;
+    
+    position: relative;
+    z-index: 10;
+}
 
+/* GRIGLIA CARTE */
+.cards-grid {
+    display: flex;
+    justify-content: center; /* Centra le carte nella riga */
+    flex-wrap: wrap;
+    gap: 60px;
+    width: 100%;
+    max-width: 1400px;
+}
         /* Il buco della rilegatura (Decorazione) */
         .diary-paper::before {
             content: '';
@@ -80,6 +107,7 @@
             top: 0; left: 40px; height: 100%;
             border-left: 2px solid rgba(255,0,0,0.1); /* Riga margine rosso */
         }
+      
 
         /* --- TIPOGRAFIA --- */
         h1 {
@@ -340,6 +368,71 @@ Non vado particolarmente fiero di quello che ero da ragazzino, ed è proprio per
         </p>
     </div>
     </div>
+  <section class="final-summary">
+    
+    <h2 class="summary-title">Se non hai tempo te lo spiego brevemente</h2>
+
+    <div class="cards-grid">
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="images/id-2-matcore.jpg" alt="Matcore">
+                    <div class="name-tag blue">MATCORE</div>
+                </div>
+                <div class="flip-card-back blue-border">
+                    <h3 class="blue-text">MATCORE</h3>
+                    <p>
+                        È il mio nickname storico, nato nei primi anni 2000 e cresciuto nei giochi online FPS.
+                      
+                        Breve, diretto, funzionale: un nome che mi ha accompagnato nella scalata alle classifiche, nelle notti infinite davanti allo schermo e nella costruzione della mia identità digitale più competitiva.
+                       
+                        Ancora oggi è un riferimento nel mio ambiente virtuale, sinonimo di esperienza, skill e mentalità old school.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="images/id-1-teozen.jpg" alt="Teo Zen">
+                    <div class="name-tag purple">TEO ZEN</div>
+                </div>
+                <div class="flip-card-back purple-border">
+                    <h3 class="purple-text">TEO ZEN</h3>
+                    <p>
+                        È il mio nome d’arte: creatore di arte digitale, disegni e pittura old school, ma anche esploratore instancabile di nuovi territori creativi.
+                      
+                        Passo con naturalezza dalla programmazione di app e siti web, alla musica digitale AI, fino all’invenzione di dispositivi e gadget.
+                        
+                        Creo video sperimentali, provo tecnologie appena nate e mi butto in ogni nuova sfida con curiosità e passione.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    <img src="images/id-3-matteo.jpg" alt="Matteo">
+                    <div class="name-tag green">MATTEO</div>
+                </div>
+                <div class="flip-card-back green-border">
+                    <h3 class="green-text">MATTEO</h3>
+                    <p>
+                        È la mia identità reale. Classe 1988. Sono un esploratore solitario, inventore e sognatore.
+                
+                        Uso filosofia e pensiero critico per analizzare la società contemporanea, pormi domande scomode e cercare risposte autentiche.
+                     
+                        Viaggio da solo, cucino reinventando ricette, vivo il minimalismo e una visione anti-consumista. Mi interessa capire come vivere meglio, con poco.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
 </div>
 
 </body>

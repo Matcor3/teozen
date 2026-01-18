@@ -613,3 +613,153 @@ a.social-split:hover span {
         margin-right: 0;
     }
 }
+/* --- FIX LAYOUT GENERALE --- */
+body {
+    /* Questo risolve il problema "è andato di lato" */
+    flex-direction: column !important; 
+    align-items: center;
+    /* Assicura che lo sfondo copra tutto anche se la pagina si allunga */
+    background-attachment: fixed; 
+}
+
+/* --- SEZIONE CARTE "BIG POSTER" --- */
+
+.final-summary {
+    width: 100%;
+    margin-top: 100px; /* Più spazio dal diario */
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.summary-title {
+    color: #fff;
+    font-family: 'TzFont', sans-serif; /* Tuo Font */
+    font-size: 3.5rem;
+    margin-bottom: 60px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.3);
+    text-align: center;
+}
+
+.cards-grid {
+    display: flex;
+    justify-content: center;
+    gap: 60px; /* Più spazio tra le card giganti */
+    flex-wrap: wrap;
+    max-width: 1400px; /* Larghezza massima contenitore */
+}
+
+/* 1. CARD GIGANTI (Format Poster) */
+.flip-card {
+    background-color: transparent;
+    width: 400px;  /* Molto più larga */
+    height: 600px; /* Molto più alta per farci stare il testo */
+    perspective: 1500px; /* Prospettiva aumentata per l'oggetto più grande */
+    cursor: pointer;
+}
+
+/* 2. IL MOTORE CHE GIRA */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* 3. FRONTE E RETRO */
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* --- FRONTE --- */
+.flip-card-front img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.name-tag {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 15px 30px;
+    font-family: 'TzFont', sans-serif; /* Tuo Font */
+    font-size: 1.8rem; /* Nome più grande */
+    border-radius: 8px;
+    width: 80%;
+    border: 1px solid rgba(255,255,255,0.4);
+    backdrop-filter: blur(5px);
+}
+
+/* --- RETRO (TESTO LUNGO) --- */
+.flip-card-back {
+    background-color: #1a1a1a;
+    color: white;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Testo parte dall'alto */
+    align-items: center;
+    padding: 40px 30px; /* Margini interni generosi */
+    box-sizing: border-box;
+    border: 3px solid #333;
+}
+
+.flip-card-back h3 {
+    font-family: 'TzFont', sans-serif; /* Tuo Font */
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    border-bottom: 2px solid rgba(255,255,255,0.1);
+    padding-bottom: 15px;
+    width: 100%;
+}
+
+.flip-card-back p {
+    font-family: 'TzFont', sans-serif; /* Tuo Font */
+    font-size: 1.3rem; /* Dimensione leggibile */
+    line-height: 1.6; /* Interlinea per non affaticare la vista */
+    text-align: left; /* Allineato a sinistra è più facile da leggere */
+    color: #ddd;
+}
+
+/* --- COLORI IDENTITÀ --- */
+.name-tag.blue { border-bottom: 4px solid #2D7EE0; }
+.blue-border { border-color: #2D7EE0; }
+.blue-text { color: #2D7EE0; }
+
+.name-tag.purple { border-bottom: 4px solid #8A2DE0; }
+.purple-border { border-color: #8A2DE0; }
+.purple-text { color: #8A2DE0; }
+
+.name-tag.green { border-bottom: 4px solid #27ae60; }
+.green-border { border-color: #27ae60; }
+.green-text { color: #27ae60; }
+
+/* MOBILE */
+@media (max-width: 900px) {
+    .flip-card {
+        width: 90vw; /* Su mobile occupa quasi tutto lo schermo */
+        height: auto; /* Altezza automatica */
+        aspect-ratio: 2/3; /* Mantiene proporzione poster */
+        min-height: 550px;
+    }
+}
