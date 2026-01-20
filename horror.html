@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IL DEMONE DEL DARK WEB</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET E BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            /* [MODIFICA] Cambiato da height a min-height per permettere lo scroll */
+            min-height: 100vh;
+            background-color: #050000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            
+            /* [MODIFICA] RIMOSSO overflow: hidden così puoi scrollare se il testo è lungo */
+            /* overflow: hidden; */ 
+            
+            /* Aggiunto un po' di spazio in fondo per non attaccare il testo al bordo */
+            padding-bottom: 50px; 
+            
+            /* SFONDO PULSANTE INFERNALE */
+            animation: hell-pulse 4s infinite ease-in-out;
+        }
+
+        @keyframes hell-pulse {
+            0%, 100% { box-shadow: inset 0 0 50px rgba(50, 0, 0, 0.5); }
+            50% { box-shadow: inset 0 0 200px rgba(180, 0, 0, 0.3); }
+        }
+
+        /* --- CONTENITORE PRINCIPALE --- */
+        .nightmare-container {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 90%;
+            padding: 20px;
+            /* [MODIFICA] Animazione 'jitter' RIMOSSA da qui. Il testo ora è fermo. */
+        }
+
+        /* --- L'IMMAGINE DEL DEMONE --- */
+        .demon-img {
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            filter: contrast(1.3) saturate(1.5) hue-rotate(-10deg);
+            margin-bottom: -30px;
+            position: relative;
+            z-index: 1;
+
+            /* [MODIFICA] Animazione 'jitter' SPOSTATA QUI. Solo l'immagine trema. */
+            animation: jitter 0.2s infinite;
+        }
+
+        /* --- TIPOGRAFIA SANGUE --- */
+        .blood-text {
+            font-family: 'Nosifer', cursive;
+            color: #e70000;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 10;
+            
+            text-shadow: 
+                3px 3px 0px #570000,
+                0 0 15px rgba(255, 0, 0, 0.8),
+                0 5px 10px rgba(0,0,0,0.8);
+                
+            /* [MODIFICA] Rimosso anche lo sfarfallio del testo per massima leggibilità */
+            /* animation: text-flicker 0.1s infinite alternate; */
+        }
+
+        h1.blood-text {
+            font-size: clamp(2.5rem, 5vw, 5rem);
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+            margin-top: 20px; /* Un po' di spazio sopra il titolo */
+        }
+
+        .story-block {
+            font-size: clamp(1rem, 2vw, 1.5rem);
+            line-height: 1.4;
+            margin-bottom: 25px;
+            color: #ff3333;
+        }
+        
+        .highlight {
+            color: #fff;
+            text-shadow: 0 0 10px red;
+        }
+
+        /* --- ANIMAZIONI DISTURBANTI --- */
+        /* Tremolio rapido (Ora solo per l'immagine) */
+        @keyframes jitter {
+            0% { transform: translate(0,0); }
+            25% { transform: translate(1px, 1px); }
+            50% { transform: translate(0, 0); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(0, 0); }
+        }
+        
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.1;
+            pointer-events: none;
+            animation: noise-anim 0.5s infinite steps(10);
+            z-index: 0; /* Deve stare sotto il testo */
+        }
+        @keyframes noise-anim {
+            0% { background-position: 0 0; }
+            100% { background-position: 100px 100px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <audio autoplay loop hidden>
+        <source src="audio/horror_sound.mp3" type="audio/mpeg">
+        Il tuo browser non supporta l'elemento audio.
+    </audio>
+
+    <div class="nightmare-container">
+        
+        <img src="images/demon.jpg" alt="Demone" class="demon-img">
+
+        <h1 class="blood-text">Ti avevo avvertito.</h1>
+
+        <div class="blood-text story-block">
+            Sei finito nella pagina del Demone del Dark Web.<br>
+            Ti tormenterà nei sogni facendoti desiderare prodotti che non potrai permetterti.
+        </div>
+
+        <div class="blood-text story-block">
+            Renderà un inferno la tua permanenza su internet.<br>
+            I tuoi dati saranno sempre controllati.
+        </div>
+
+        <div class="blood-text story-block">
+            I banner sempre più invasivi.<br>
+            Le pubblicità così aggressive da farti pentire di aver aperto una pagina.<br>
+            Il tuo indirizzo email verrà condiviso con chiunque.
+        </div>
+
+        <div class="blood-text story-block">
+            Anche con il più misero venditore di corsi online.<br>
+            Sapranno tutto di te.
+        </div>
+
+        <div class="blood-text story-block">
+            Anche quante volte vai in bagno.<br>
+            Prima ti consiglieranno un lassativo.
+        </div>
+
+        <div class="blood-text story-block" style="margin-bottom: 50px;">
+            Poi la carta igienica più cara.<br>
+            Non c’è modo di scappare.
+        </div>
+
+        <div class="blood-text story-block" style="font-size: 1.2rem;">
+            Se non trovando il <span class="highlight">Sacro Graal</span> del sito:<br>
+            l’<span class="highlight">Easter Egg</span> nascosto.<br>
+            L’unico in grado di spezzare la maledizione.
+        </div>
+
+    </div>
+
+</body>
+</html>

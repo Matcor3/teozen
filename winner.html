@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Rivelazione</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Pinyon+Script&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- RESET E BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            font-family: 'Cinzel Decorative', cursive; /* Font Regale base */
+            
+            /* SFONDO PARADISIACO */
+            /* Un gradiente che va dalla luce divina centrale al blu profondo esterno */
+            background: radial-gradient(ellipse at center, #fbf5b7 0%, #bf953f 30%, #0a0a2a 100%);
+            color: #fff;
+        }
+
+        /* --- EFFETTO ORO METALLICO SUL TESTO --- */
+        /* Questa classe fa sembrare il testo vero oro colato */
+        .gold-text {
+            background: linear-gradient(to bottom, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
+        }
+
+        /* --- CONTENITORE PRINCIPALE --- */
+        .divine-container {
+            position: relative;
+            z-index: 10;
+            padding: 40px;
+            max-width: 800px;
+            
+            /* Cornice luminosa dorata */
+            border: 2px solid transparent;
+            border-image: linear-gradient(to bottom, #bf953f, #fcf6ba, #b38728) 1;
+            box-shadow: 0 0 50px rgba(191, 149, 63, 0.3), inset 0 0 20px rgba(191, 149, 63, 0.3);
+            
+            /* Animazione di entrata */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: ascend 1.5s ease-out forwards 0.5s;
+        }
+
+        /* --- IMMAGINE DELLA DIVINITÀ --- */
+        .deity-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%; /* Cerchio */
+            object-fit: cover;
+            border: 4px solid #bf953f;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); /* Alone luminoso */
+            margin-bottom: 30px;
+        }
+
+        /* --- TIPOGRAFIA --- */
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        h3 {
+            font-size: 2.5rem;
+            margin: 40px 0 20px 0;
+            text-transform: uppercase;
+        }
+
+        p {
+            font-size: 1.3rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        /* La firma di Teo Zen */
+        .signature-block {
+            margin-top: 50px;
+        }
+        .signature {
+            font-family: 'Pinyon Script', cursive; /* Font calligrafico */
+            font-size: 3.5rem;
+            margin-top: 10px;
+        }
+
+        /* --- ANIMAZIONI --- */
+        @keyframes ascend {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- PARTICELLE DI LUCE FLUTTUANTI (Atmosfera) --- */
+        .particles {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            bottom: -10px;
+            background: radial-gradient(circle, #fff, transparent 60%);
+            border-radius: 50%;
+            opacity: 0;
+            animation: float-up 5s infinite linear;
+        }
+        /* Creiamo diverse particelle con tempi diversi */
+        .p1 { width: 5px; height: 5px; left: 10%; animation-delay: 0s; animation-duration: 7s; }
+        .p2 { width: 8px; height: 8px; left: 30%; animation-delay: 2s; animation-duration: 10s; }
+        .p3 { width: 3px; height: 3px; left: 50%; animation-delay: 1s; animation-duration: 6s; }
+        .p4 { width: 6px; height: 6px; left: 70%; animation-delay: 3s; animation-duration: 8s; }
+        .p5 { width: 4px; height: 4px; left: 90%; animation-delay: 1.5s; animation-duration: 9s; }
+
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            20% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
+        }
+
+        /* PULSANTE DI RITORNO DISCRETO */
+        .return-btn {
+            display: inline-block;
+            margin-top: 40px;
+            text-decoration: none;
+            color: #bf953f;
+            border: 1px solid #bf953f;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+            opacity: 0.6;
+        }
+        .return-btn:hover {
+            background: rgba(191, 149, 63, 0.2);
+            opacity: 1;
+            box-shadow: 0 0 15px rgba(191, 149, 63, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles">
+        <span class="particle p1"></span>
+        <span class="particle p2"></span>
+        <span class="particle p3"></span>
+        <span class="particle p4"></span>
+        <span class="particle p5"></span>
+    </div>
+
+    <div class="divine-container">
+        
+        <img src="images/deity.jpg" alt="Divinità" class="deity-img">
+
+        <h1 class="gold-text">Sei stato bravo.</h1>
+        <h2 class="gold-text">Un vero cercatore del web.</h2>
+        
+        <p>Hai trovato la pagina segreta.</p>
+
+        <h3 class="gold-text">Il Santo Graal.</h3>
+        
+        <p>Come persona degna, ogni tua maledizione digitale è ora cancellata.</p>
+        <p>Fortuna e prosperità guideranno la tua navigazione.</p>
+
+        <div class="signature-block">
+            <p>I più sentiti omaggi,</p>
+            <p>dal creatore del sito,</p>
+            <div class="signature gold-text">Teo Zen.</div>
+        </div>
+
+        <a href="index.html" class="return-btn">Torna alla Realtà Mortale</a>
+
+    </div>
+
+</body>
+</html>
