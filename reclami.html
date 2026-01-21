@@ -3,26 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SEGRETO SVELATO</title>
-    <link rel="stylesheet" href="style.css">
+    <title>ERRORE - RECLAMI</title>
+    
     <style>
+        /* --- LAYOUT GENERALE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
+            background-color: #0a0a0a; /* Nero profondo */
+            color: #dcdcdc; /* Bianco sporco */
+            font-family: 'Courier New', Courier, monospace;
+            min-height: 100vh;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background: black;
-            color: lime;
             text-align: center;
-            font-family: 'Courier New', monospace;
+            padding: 20px;
+            overflow-y: auto; /* Permette lo scroll se lo schermo è piccolo */
         }
+
+        /* --- 1. LA GIF VERTICALE --- */
+        .reaction-gif {
+    max-width: 640px; /* Perfetto per schermi grandi */
+    width: 100%;      /* Si rimpicciolisce su mobile */
+    height: auto;
+    
+    border-radius: 10px;
+    border: 2px solid #333;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+        /* --- 2. IL TESTO DEL RIMPROVERO --- */
+        .message-container {
+            font-size: clamp(1rem, 2.5vw, 1.2rem);
+            line-height: 1.8;
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        p {
+            opacity: 0;
+            transform: translateY(10px);
+            animation: appear 0.8s forwards;
+        }
+
+        /* Tempistiche di apparizione */
+        .line-1 { animation-delay: 0.5s; }
+        .line-2 { animation-delay: 2.0s; font-weight: bold; color: #fff; }
+        .line-3 { animation-delay: 3.5s; }
+        .line-4 { animation-delay: 5.0s; font-style: italic; color: #ff6666; }
+        .line-5 { animation-delay: 6.5s; margin-top: 15px; }
+
+        /* --- 3. L'ANIMAZIONE SVG 404 (FACE) --- */
+        main {
+            padding: 1.5em 0;
+            color: #dcdcdc; /* Colore delle linee della faccia */
+            opacity: 0;
+            animation: appear 1s forwards 8s; /* Appare alla fine di tutto */
+        }
+
+        .face {
+            display: block;
+            width: 200px; /* Dimensione faccia */
+            height: auto;
+            overflow: visible;
+        }
+
+        /* Animazioni interne SVG (Convertite da SCSS a CSS) */
+        .face__eyes, .face__eye-lid, .face__mouth-left, .face__mouth-right, .face__nose, .face__pupil {
+            animation: eyes 1s 0.3s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+
+        .face__eye-lid, .face__pupil {
+            animation-duration: 4s;
+            animation-delay: 1.3s;
+            animation-iteration-count: infinite;
+        }
+
+        .face__eye-lid { animation-name: eye-lid; }
+        .face__mouth-left { animation-name: mouth-left; animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); }
+        .face__mouth-right { animation-name: mouth-right; animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1); }
+        .face__nose { animation-name: nose; }
+        .face__pupil { animation-name: pupil; }
+
+        /* KEYFRAMES SVG */
+        @keyframes eye-lid {
+            from, 40%, 45%, to { transform: translateY(0); }
+            42.5% { transform: translateY(17.5px); }
+        }
+        @keyframes eyes {
+            from { transform: translateY(112.5px); }
+            to { transform: translateY(15px); }
+        }
+        @keyframes pupil {
+            from, 37.5%, 40%, 45%, 87.5%, to { stroke-dashoffset: 0; transform: translate(0, 0); }
+            12.5%, 25%, 62.5%, 75% { stroke-dashoffset: 0; transform: translate(-35px, 0); }
+            42.5% { stroke-dashoffset: 35; transform: translate(0, 17.5px); }
+        }
+        @keyframes mouth-left {
+            from, 50% { stroke-dashoffset: -102; }
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes mouth-right {
+            from, 50% { stroke-dashoffset: 102; }
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes nose {
+            from { transform: translate(0, 0); }
+            to { transform: translate(0, 22.5px); }
+        }
+
+        /* --- PULSANTE DI SCUSE --- */
+        .apology-btn {
+            margin-top: 30px;
+            margin-bottom: 50px;
+            padding: 12px 25px;
+            background: transparent;
+            border: 1px solid #dcdcdc;
+            color: #dcdcdc;
+            font-family: inherit;
+            cursor: pointer;
+            text-decoration: none;
+            opacity: 0;
+            animation: appear 1s forwards 9s; /* Appare per ultimo assoluto */
+            transition: 0.3s;
+        }
+
+        .apology-btn:hover {
+            background: #dcdcdc;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px #dcdcdc;
+        }
+
+        /* KEYFRAMES GENERALI */
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes appear { to { opacity: 1; transform: translateY(0); } }
+
     </style>
 </head>
 <body>
-    <div>
-        <h1>SYSTEM HACKED</h1>
-        <p>Benvenuto nel livello segreto di Teo Zen.</p>
-        <a href="index.html" style="color: white;">TORNA INDIETRO</a>
+
+    <video class="reaction-gif" autoplay loop muted playsinline>
+        <source src="images/reclami.mp4" type="video/mp4">
+        
+        <img src="images/reclami.gif" alt="Reaction">
+    </video>
+
+    <div class="message-container">
+        <p class="line-1">Come hai potuto anche solo pensare di criticare questo sito?</p>
+        <p class="line-2">Guarda cosa hai fatto.</p>
+        <p class="line-3">Questa pagina non era prevista.</p>
+        <p class="line-4">Non dovrebbe esistere.</p>
+        <p class="line-5">Eppure eccoci qui.</p>
     </div>
+
+    <main>
+        <svg class="face" viewBox="0 0 320 380" aria-label="A 404 becomes a face">
+            <g fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="25">
+                <g class="face__eyes" transform="translate(0, 112.5)">
+                    <g transform="translate(15, 0)">
+                        <polyline class="face__eye-lid" points="37,0 0,120 75,120" />
+                        <polyline class="face__pupil" points="55,120 55,155" stroke-dasharray="35 35" />
+                    </g>
+                    <g transform="translate(230, 0)">
+                        <polyline class="face__eye-lid" points="37,0 0,120 75,120" />
+                        <polyline class="face__pupil" points="55,120 55,155" stroke-dasharray="35 35" />
+                    </g>
+                </g>
+                <rect class="face__nose" rx="4" ry="4" x="132.5" y="112.5" width="55" height="155" />
+                <g stroke-dasharray="102 102" transform="translate(65, 334)">
+                    <path class="face__mouth-left" d="M 0 30 C 0 30 40 0 95 0" stroke-dashoffset="-102" />
+                    <path class="face__mouth-right" d="M 95 0 C 150 0 190 30 190 30" stroke-dashoffset="102" />
+                </g>
+            </g>
+        </svg>
+    </main>
+
+    <a href="index.html" class="apology-btn">Scusa, portami via da qui.</a>
+
 </body>
 </html>
