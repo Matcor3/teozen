@@ -17,19 +17,24 @@
             min-height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: center; 
             text-align: center;
-            overflow: hidden;
-            font-family: 'Cinzel Decorative', cursive; /* Font Regale base */
+            /* RIMOSSO overflow: hidden per permettere lo scroll su mobile */
+            /* overflow: hidden; */
+            overflow-x: hidden; /* Evitiamo solo lo scroll orizzontale */
+            
+            font-family: 'Cinzel Decorative', cursive;
             
             /* SFONDO PARADISIACO */
-            /* Un gradiente che va dalla luce divina centrale al blu profondo esterno */
             background: radial-gradient(ellipse at center, #fbf5b7 0%, #bf953f 30%, #0a0a2a 100%);
+            background-attachment: fixed; /* Lo sfondo sta fermo mentre scrolli */
             color: #fff;
+            
+            /* Importante per mobile: un po' di spazio sopra e sotto */
+            padding: 40px 20px;
         }
 
-        /* --- EFFETTO ORO METALLICO SUL TESTO --- */
-        /* Questa classe fa sembrare il testo vero oro colato */
+        /* --- EFFETTO ORO --- */
         .gold-text {
             background: linear-gradient(to bottom, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
             -webkit-background-clip: text;
@@ -41,64 +46,74 @@
         .divine-container {
             position: relative;
             z-index: 10;
-            padding: 40px;
+            padding: 30px; /* Ridotto leggermente */
+            width: 100%;
             max-width: 800px;
             
-            /* Cornice luminosa dorata */
             border: 2px solid transparent;
             border-image: linear-gradient(to bottom, #bf953f, #fcf6ba, #b38728) 1;
             box-shadow: 0 0 50px rgba(191, 149, 63, 0.3), inset 0 0 20px rgba(191, 149, 63, 0.3);
             
-            /* Animazione di entrata */
             opacity: 0;
             transform: translateY(30px);
             animation: ascend 1.5s ease-out forwards 0.5s;
+            
+            /* Assicura che non esca dallo schermo orizzontalmente */
+            margin: 0 auto; 
         }
 
-        /* --- IMMAGINE DELLA DIVINITÀ --- */
+        /* --- IMMAGINE --- */
         .deity-img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%; /* Cerchio */
+            /* Dimensione reattiva: 200px su PC, ma si rimpicciolisce su mobile */
+            width: clamp(120px, 30vw, 200px); 
+            height: clamp(120px, 30vw, 200px);
+            
+            border-radius: 50%;
             object-fit: cover;
             border: 4px solid #bf953f;
-            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8); /* Alone luminoso */
-            margin-bottom: 30px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+            margin-bottom: 20px;
         }
 
-        /* --- TIPOGRAFIA --- */
+        /* --- TIPOGRAFIA RESPONSIVE (Uso clamp) --- */
+        /* clamp(minimo, preferito, massimo) */
+        
         h1 {
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem); /* Si adatta tra 2rem e 3rem */
             margin-bottom: 10px;
             letter-spacing: 2px;
+            line-height: 1.2;
         }
 
         h2 {
-            font-size: 1.8rem;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
             margin-bottom: 30px;
             opacity: 0.9;
         }
 
         h3 {
-            font-size: 2.5rem;
-            margin: 40px 0 20px 0;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            margin: 30px 0 20px 0;
             text-transform: uppercase;
+            line-height: 1.2;
         }
 
         p {
-            font-size: 1.3rem;
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+            padding: 0 10px; /* Margine laterale per non toccare i bordi */
         }
 
-        /* La firma di Teo Zen */
+        /* --- FIRMA --- */
         .signature-block {
-            margin-top: 50px;
+            margin-top: 40px;
         }
         .signature {
-            font-family: 'Pinyon Script', cursive; /* Font calligrafico */
-            font-size: 3.5rem;
+            font-family: 'Pinyon Script', cursive;
+            font-size: clamp(2.5rem, 6vw, 3.5rem); /* Firma adattabile */
             margin-top: 10px;
+            line-height: 1.2;
         }
 
         /* --- ANIMAZIONI --- */
@@ -106,9 +121,9 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- PARTICELLE DI LUCE FLUTTUANTI (Atmosfera) --- */
+        /* --- PARTICELLE --- */
         .particles {
-            position: absolute;
+            position: fixed; /* Fixed così coprono tutto anche se scrolli */
             top: 0; left: 0; width: 100%; height: 100%;
             pointer-events: none;
             z-index: 1;
@@ -121,7 +136,6 @@
             opacity: 0;
             animation: float-up 5s infinite linear;
         }
-        /* Creiamo diverse particelle con tempi diversi */
         .p1 { width: 5px; height: 5px; left: 10%; animation-delay: 0s; animation-duration: 7s; }
         .p2 { width: 8px; height: 8px; left: 30%; animation-delay: 2s; animation-duration: 10s; }
         .p3 { width: 3px; height: 3px; left: 50%; animation-delay: 1s; animation-duration: 6s; }
@@ -134,17 +148,17 @@
             100% { transform: translateY(-110vh) scale(0.5); opacity: 0; }
         }
 
-        /* PULSANTE DI RITORNO DISCRETO */
+        /* PULSANTE */
         .return-btn {
             display: inline-block;
             margin-top: 40px;
             text-decoration: none;
             color: #bf953f;
             border: 1px solid #bf953f;
-            padding: 10px 20px;
+            padding: 12px 25px; /* Tocco più facile su mobile */
             font-size: 0.9rem;
             transition: 0.3s;
-            opacity: 0.6;
+            opacity: 0.8;
         }
         .return-btn:hover {
             background: rgba(191, 149, 63, 0.2);
