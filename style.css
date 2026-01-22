@@ -1,5 +1,6 @@
 /* public/style.css - VERSIONE ULTIMATE (MERGE COMPLETO) */
-
+/* --- IMPORTAZIONE FONT MONA SANS (Per l'effetto Social) --- */
+@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap");
 /* --- 1. IMPORTAZIONE FONT PERSONALE --- */
 /* Assicurati che il file sia in public/fonts/mio-font.ttf */
 @font-face {
@@ -386,8 +387,7 @@ footer {
 }
 /* public/style.css - AGGIUNGI IN FONDO */
 
-/* --- IMPORTAZIONE FONT MONA SANS (Per l'effetto Social) --- */
-@import url("https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wdth,wght@0,75..125,200..900;1,75..125,200..900&display=swap");
+
 
 /* --- NUOVO STILE SOCIAL CINETICO --- */
 
