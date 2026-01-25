@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://matcor3.github.io/teozen/sitemap.xml
+
+Sitemap: https://www.teozen.it/sitemap.xml
