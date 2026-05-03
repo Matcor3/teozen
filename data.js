@@ -93,6 +93,132 @@ const allProjects = [
         image: "images/art3.jpg",
         description: "Grime effect su ritratto digitale."
     },
+    {
+        category: "art",
+        title: "TEO ZEN",
+        image: "images/art12.jpg",
+        description: "Poster minimalista."
+    },
+    {
+        category: "art",
+        title: "Hypnotic circle",
+        image: "images/art15.jpg",
+        description: "Cerchio con puntini ipnotico."
+    },
+    {
+        category: "art",
+        title: "Cambiamento climatico",
+        image: "images/art16.jpg",
+        description: "Il mondo sta cambiando - E tu cosa fai?"
+    },
+    {
+        category: "art",
+        title: "Spiral",
+        image: "images/art13.jpg",
+        description: "Spirale della passione."
+    },
+    {
+        category: "art",
+        title: "Wave",
+        image: "images/art14.png",
+        description: "Effetto ondoso ipnotico."
+    },
+    {
+        category: "art",
+        title: "Anime style",
+        image: "images/art17.jpg",
+        description: "Tributo agli anime - Progetto t-shirt."
+    },
+    {
+        category: "art",
+        title: "Make Art",
+        image: "images/art18.jpg",
+        description: "Tributo all'arte - Progetto t-shirt."
+    },
+    {
+        category: "art",
+        title: "Everything is complicated",
+        image: "images/art19.jpg",
+        description: "Tutto è complicato - Progetto t-shirt."
+    },
+    {
+        category: "art",
+        title: "Matcore colorful",
+        image: "images/art20.jpg",
+        description: "Scritta Matccore colorata"
+    },
+    {
+        category: "art",
+        title: "Sliced head",
+        image: "images/art21.jpg",
+        description: "Testa a fette frontale."
+    },
+    {
+        category: "art",
+        title: "sliced head 2",
+        image: "images/art22.jpg",
+        description: "Testa a fette laterale."
+    },
+    {
+        category: "art",
+        title: "M flower",
+        image: "images/art23.jpg",
+        description: "Effetto 3D con fiore."
+    },
+    {
+        category: "art",
+        title: "Matcore slime",
+        image: "images/art24.jpg",
+        description: "Scritta 3D Matcore con effetto slime."
+    },
+    {
+        category: "art",
+        title: "Cartoonizer",
+        image: "images/art25.jpg",
+        description: "Effetto cartone animato pre IA."
+    },
+    {
+        category: "art",
+        title: "Time machine",
+        image: "images/art26.jpg",
+        description: "Collage digitale pre IA."
+    },
+    {
+        category: "art",
+        title: "Double Exposure",
+        image: "images/art27.jpg",
+        description: "Effetto doppia esposizione."
+    },
+    {
+        category: "art",
+        title: "Piccolo mondo",
+        image: "images/art28.jpg",
+        description: "Manipolazione digitale pre IA."
+    },
+    {
+        category: "art",
+        title: "Nascosto",
+        image: "images/art29.jpg",
+        description: "Si vede quello che si vuole vedere."
+    },
+    {
+        category: "art",
+        title: "Just Breathe",
+        image: "images/art30.jpg",
+        description: "Murales purtroppo cancellato."
+    },
+    {
+        category: "art",
+        title: "Keep clean",
+        image: "images/art31.jpg",
+        description: "Murales come monito a tenere pulito."
+    },
+    {
+        category: "art",
+        title: "Trap",
+        image: "images/art32.jpg",
+        description: "Tutto è una trappola."
+    },
 
    // --- CODING PROJECTS ---
     {
