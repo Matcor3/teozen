@@ -219,6 +219,66 @@ const allProjects = [
         image: "images/art32.jpg",
         description: "Tutto è una trappola."
     },
+    {
+        category: "art",
+        title: "Non mollare",
+        image: "images/art33.jpg",
+        description: "Murales per non mollare."
+    },
+    {
+        category: "art",
+        title: "M 3D",
+        image: "images/art34.jpg",
+        description: "Disegno effetto 3D."
+    },
+    {
+        category: "art",
+        title: "Oggetto sospeso",
+        image: "images/art35.jpg",
+        description: "Disegno 3D effetto sospeso."
+    },
+    {
+        category: "art",
+        title: "La grande onda di Kanagawa",
+        image: "images/art36.jpg",
+        description: "Tributo a un'immagine iconica di Hokusai."
+    },
+    {
+        category: "art",
+        title: "Giardino Zen",
+        image: "images/art38.jpg",
+        description: "Acquerello di un giardino zen."
+    },
+    {
+        category: "art",
+        title: "Mondi",
+        image: "images/art39.jpg",
+        description: "Disegno di mondi immaginari."
+    },
+    {
+        category: "art",
+        title: "Sfera di vetro",
+        image: "images/art40.jpg",
+        description: "Disegno di una sfera di vetro."
+    },
+    {
+        category: "art",
+        title: "Amore",
+        image: "images/art41.jpg",
+        description: "Tecnica disegno su dita."
+    },
+    {
+        category: "art",
+        title: "Friendship",
+        image: "images/art42.jpg",
+        description: "Tecnica disegno su dita."
+    },
+    {
+        category: "art",
+        title: "Escluso",
+        image: "images/art43.jpg",
+        description: "Tecnica disegno su dita."
+    },
 
    // --- CODING PROJECTS ---
     {
