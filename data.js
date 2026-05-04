@@ -16,7 +16,7 @@ const allProjects = [
         title: "Alimentatore da banco",
         image: "images/diy2.jpg", // Trova un'immagine per questo!
         description: "Alimentatore PC trasformato in alimentatore da banco regolabile.",
-    
+        videoUrl: ""
     },
     {
         category: "diy",

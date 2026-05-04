@@ -14,27 +14,33 @@
         :root {
             --font-titles: 'Space Mono', monospace;
             --font-body: 'Space Mono', monospace;
-            
-            /* Palette Ingegneristica */
             --blueprint-blue: #003366;
             --blueprint-line: rgba(255, 255, 255, 0.15);
-            --safety-yellow: #FFD700; /* Giallo avviso */
+            --safety-yellow: #FFD700;
             --white: #ffffff;
         }
 
         body {
-            /* Sfondo Carta Millimetrata */
             background-color: var(--blueprint-blue);
             background-image: 
                 linear-gradient(var(--blueprint-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--blueprint-line) 1px, transparent 1px);
-            background-size: 40px 40px; /* Grandezza quadretti */
-            
+            background-size: 40px 40px;
             color: var(--white);
             font-family: var(--font-body);
         }
 
-        /* Titolo Timbrato */
+        /* --- NAV & HEADER --- */
+        nav { background: #002244; border-bottom: 2px solid var(--safety-yellow); }
+        nav a { font-family: var(--font-body); color: var(--safety-yellow) !important; text-decoration: none; font-weight: bold; }
+        
+        .container {
+            max-width: 1200px;
+            margin: 120px auto 50px;
+            padding: 20px;
+            text-align: center;
+        }
+
         h1 {
             font-family: var(--font-titles);
             font-size: 3.5rem;
@@ -43,33 +49,23 @@
             display: inline-block;
             padding: 10px 30px;
             margin-bottom: 50px;
-            letter-spacing: -2px;
             background: rgba(0,0,0,0.2);
-            /* Effetto Timbro */
             transform: rotate(-2deg); 
         }
 
-        nav { background: #002244; border-bottom: 2px solid var(--safety-yellow); }
-        nav a { font-family: var(--font-body); color: var(--safety-yellow) !important; text-shadow: none !important; -webkit-text-stroke: 0 !important; }
-       
         .page-desc {
-    font-family: 'Space Mono', monospace;
-    color: var(--safety-yellow); /* Giallo tecnico */
-    max-width: 700px;
-    margin: 0 auto 60px auto;
-    border-left: 2px solid var(--safety-yellow);
-    padding-left: 15px;
-    text-align: left; /* Allineato a sinistra come un documento */
-    font-size: 0.9rem;
-}
-        .container {
-            max-width: 1200px;
-            margin: 120px auto 50px;
-            padding: 20px;
-            text-align: center;
+            font-family: 'Space Mono', monospace;
+            color: var(--safety-yellow);
+            max-width: 700px;
+            margin: 0 auto 60px auto;
+            border-left: 2px solid var(--safety-yellow);
+            padding-left: 15px;
+            text-align: left;
+            font-size: 0.9rem;
+            line-height: 1.6;
         }
 
-        /* Griglia Progetti */
+        /* --- GRIGLIA PROGETTI --- */
         .blueprint-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -77,29 +73,16 @@
             text-align: left;
         }
 
-        /* CARD STILE SCHEDA TECNICA */
         .tech-card {
             border: 2px solid var(--white);
-            background: rgba(0, 51, 102, 0.8); /* Semi trasparente */
+            background: rgba(0, 51, 102, 0.8);
             position: relative;
             transition: all 0.3s;
         }
 
-        /* Dettagli tecnici decorativi agli angoli */
-        .tech-card::before {
-            content: '';
-            position: absolute; top: -5px; left: -5px;
-            width: 10px; height: 10px; border-top: 2px solid var(--safety-yellow); border-left: 2px solid var(--safety-yellow);
-        }
-        .tech-card::after {
-            content: '';
-            position: absolute; bottom: -5px; right: -5px;
-            width: 10px; height: 10px; border-bottom: 2px solid var(--safety-yellow); border-right: 2px solid var(--safety-yellow);
-        }
-
         .tech-card:hover {
             transform: translateY(-5px);
-            box-shadow: 10px 10px 0px rgba(0,0,0,0.5); /* Ombra dura, non sfumata */
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.5);
             border-color: var(--safety-yellow);
         }
 
@@ -107,39 +90,54 @@
             height: 250px;
             border-bottom: 2px solid var(--white);
             overflow: hidden;
-            position: relative;
+            cursor: zoom-in;
         }
 
         .tech-img {
             width: 100%; height: 100%; object-fit: cover;
-            filter: grayscale(100%) contrast(1.2); /* Foto in bianco e nero */
-            transition: 0.3s;
+            filter: grayscale(100%);
+            transition: 0.5s ease;
         }
-        /* Hover: la foto diventa bluastra stile blueprint */
+
+        /* Effetto hover pulito (senza filtro blu) */
         .tech-card:hover .tech-img {
-            filter: grayscale(100%) sepia(100%) hue-rotate(190deg) saturate(300%);
+            filter: grayscale(0%);
         }
 
         .tech-info { padding: 20px; }
-        
-        .tech-header {
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px dashed rgba(255,255,255,0.3);
-            padding-bottom: 10px; margin-bottom: 10px;
+        .tech-title { font-size: 1.5rem; color: var(--safety-yellow); margin: 0; text-transform: uppercase; }
+        .tech-desc { font-size: 0.9rem; color: #ddd; margin-top: 10px; }
+
+        /* --- LIGHTBOX (Stile Art Gallery) --- */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(255, 255, 255, 0.95); /* Bianco come Art Gallery */
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
         }
 
-        .tech-title { font-size: 1.5rem; font-weight: 700; color: var(--safety-yellow); margin: 0; }
-        .tech-id { font-size: 0.8rem; color: #ccc; }
+        .lightbox.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
 
-        .tech-desc { font-size: 0.9rem; line-height: 1.5; color: #ddd; }
+        .lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            cursor: default;
+            object-fit: contain;
+        }
 
-        .tech-tags { margin-top: 15px; }
-        .tech-tag {
-            background: transparent;
-            border: 1px solid var(--safety-yellow);
-            color: var(--safety-yellow);
-            font-size: 0.7rem; padding: 2px 8px; margin-right: 5px;
-            text-transform: uppercase;
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
     </style>
@@ -153,50 +151,69 @@
     <div class="container">
         <h1>PROTOTYPE LAB</h1>
         <p class="page-desc">
-    /// SYSTEM LOG: ACTIVE <br>
-    Sono sempre alla ricerca di nuove sfide.
-Il DIY (Do It Yourself) per me non è solo un hobby, ma una risposta concreta a un bisogno reale: quando creo qualcosa, è perché mi serve davvero.
+            /// SYSTEM LOG: ACTIVE <br>
+            Sono sempre alla ricerca di nuove sfide. Il DIY per me non è solo un hobby, ma una risposta concreta a un bisogno reale. <br><br>
+            Il mio motto: “Non spendere più di quanto costerebbe nuovo in negozio.”
+        </p>
 
-Il mio motto è semplice e un po’ controcorrente:
-“Non spendere più di quanto costerebbe nuovo in negozio.”
-
-Le mie creazioni nascono spesso da materiali riadattati, componenti economici o parti recuperate e riciclate. Non per risparmiare a tutti i costi, ma per dimostrare che ingegno e creatività valgono più del budget.
-
-La vera sfida non è solo costruire qualcosa con le proprie mani,
-ma farlo nel modo più intelligente possibile, spendendo il minimo e ottenendo comunque un risultato solido, funzionale e perché no sorprendente.
-</p>
         <div class="blueprint-grid" id="diy-container">
-            </div>
+            <!-- I progetti vengono inseriti qui da JS -->
+        </div>
+    </div>
+
+    <!-- Struttura Lightbox -->
+    <div id="lightbox" class="lightbox">
+        <img id="lightbox-img" src="" alt="Ingrandimento">
     </div>
 
     <script src="data.js"></script>
-    <script>
-        const container = document.getElementById('diy-container');
+<script>
+    const container = document.getElementById('diy-container');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
 
-        // FILTRO: Mostriamo solo i progetti con category "diy"
-        const diyProjects = allProjects.filter(item => item.category === 'diy');
+    const diyProjects = allProjects.filter(item => item.category === 'diy');
 
-        diyProjects.forEach((item, index) => {
-            // Generiamo un ID finto tipo "PRJ-01"
-            const projectID = `PRJ-0${index + 1}`;
+    diyProjects.forEach((item, index) => {
+        const projectID = `PRJ-0${index + 1}`;
+        
+        // LOGICA LINK VIDEO: 
+        // Se esiste item.videoUrl, crea un tag <a>, altrimenti solo testo <h3>
+        const titleContent = item.videoUrl 
+            ? `<a href="${item.videoUrl}" target="_blank" style="color: var(--safety-yellow); text-decoration: underline;">${item.title}</a>`
+            : item.title;
 
-            container.innerHTML += `
-                <div class="tech-card">
-                    <div class="tech-img-box">
-                        <img src="${item.image}" class="tech-img">
-                    </div>
-                    <div class="tech-info">
-                        <div class="tech-header">
-                            <h3 class="tech-title">${item.title}</h3>
-                            <span class="tech-id">${projectID}</span>
-                        </div>
-                        <p class="tech-desc">${item.description}</p>
-                       
-                        </div>
-                    </div>
+        container.innerHTML += `
+            <div class="tech-card">
+                <div class="tech-img-box">
+                    <img src="${item.image}" class="tech-img" alt="${item.title}">
                 </div>
-            `;
-        });
-    </script>
+                <div class="tech-info">
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:10px;">
+                        <h3 class="tech-title">${titleContent}</h3>
+                        <span style="font-size:0.7rem; color:#ccc; white-space: nowrap; margin-left: 10px;">${projectID}</span>
+                    </div>
+                    <p class="tech-desc">${item.description}</p>
+                </div>
+            </div>
+        `;
+    });
+
+    // Gestione Lightbox (Invariata)
+    container.addEventListener('click', (e) => {
+        if (e.target.classList.contains('tech-img')) {
+            lightboxImg.src = e.target.src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target !== lightboxImg) { 
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+    });
+</script>
 </body>
 </html>
