@@ -279,6 +279,72 @@ const allProjects = [
         image: "images/art43.jpg",
         description: "Tecnica disegno su dita."
     },
+        {
+        category: "art",
+        title: "Luna",
+        image: "images/art44.jpg",
+        description: "Foto con smartphone e poi elaborata."
+    },
+        {
+        category: "art",
+        title: "The Impossible Triangle",
+        image: "images/art45.jpg",
+        description: "Dipinto trinagolo impossibile con vernice acrilica."
+    },
+{
+        category: "art",
+        title: "Alien",
+        image: "images/art46.jpg",
+        description: "Dipinto invasione aliena con vernice acrilica."
+    },
+        {
+        category: "art",
+        title: "psychedelic jungle",
+        image: "images/art47.jpg",
+        description: "Dipinto giungla psichedelica con vernice acrilica."
+    },
+        {
+        category: "art",
+        title: "Colourful",
+        image: "images/art48.jpg",
+        description: "Grafica digitale con effetto multicolore."
+    },
+        {
+        category: "art",
+        title: "Segui la luce",
+        image: "images/art49.jpg",
+        description: "Illustrazione digitale scritta illuminata."
+    },
+    {
+        category: "art",
+        title: "Escluso",
+        image: "images/art5.jpg",
+        description: "Tecnica disegno su dita."
+    },
+        {
+        category: "art",
+        title: "Matcore 3D",
+        image: "images/art50.jpg",
+        description: "Scritta con effetto 3D digitale."
+    },
+        {
+        category: "art",
+        title: "TZ",
+        image: "images/art51.jpg",
+        description: "Sfondo personalizzato smartphone TZ."
+    },
+        {
+        category: "art",
+        title: "Don't stop creativity",
+        image: "images/art52.jpg",
+        description: "Dipito sul muro della camera."
+    },
+            {
+        category: "art",
+        title: "Biglieto da visita",
+        image: "images/art53.png",
+        description: "Biglietto da visita personalizzato."
+    },
 
    // --- CODING PROJECTS ---
     {
