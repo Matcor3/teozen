@@ -11,19 +11,96 @@ const allProjects = [
     },
 
     // --- DIY / INVENTIONS ---
-    {
-        category: "diy", // ETICHETTA IMPORTANTE
-        title: "Alimentatore da banco",
-        image: "images/diy2.jpg", // Trova un'immagine per questo!
-        description: "Alimentatore PC trasformato in alimentatore da banco regolabile.",
-        videoUrl: ""
-    },
-    {
+       {
         category: "diy",
         title: "Portafoglio in pelle",
         image: "images/diy1.jpg",
         description: "Poratafoglio minimalista fatto a mano in pelle",
-
+        videoUrl: ""
+    },
+      {
+        category: "diy",
+        title: "Ciondolo ciberpunk",
+        image: "images/diy2.jpg",
+        description: "Ciondolo ispirato allo stile ciberpunk",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Ciondolo ring led ciberpunk",
+        image: "images/diy3.jpg",
+        description: "Ciondolo con anelli led sincronizzati in stile ciberpunk",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Ciondolo Tetris ciberpunk",
+        image: "images/diy4.jpg",
+        description: "Ciondolo Tetris ispirato allo stile ciberpunk",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Multitool ciberpunk",
+        image: "images/diy5.jpg",
+        description: "Multitool voltometro,termometro e metro",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Buzz wire game",
+        image: "images/diy6.jpg",
+        description: "Gioco: passa l'anello senza toccare il filo",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Alimentatore modificato",
+        image: "images/diy7.jpg",
+        description: "Alimentatore PC modificato",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Aspira fumi",
+        image: "images/diy8.jpg",
+        description: "Dispositivo per aspirare i fumi",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Radio modificata",
+        image: "images/diy9.jpg",
+        description: "Radio modificata in stile ciberpunk",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Ciondoli LED",
+        image: "images/diy10.jpg",
+        description: "Ciondoli LED, prime creazioni",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Ciondoli conchiglie e stagno",
+        image: "images/diy11.jpg",
+        description: "Ciondolo conchiglie e stagno, prime creazioni",
+        videoUrl: ""
+    },
+          {
+        category: "diy",
+        title: "Sacca cucita a mano",
+        image: "images/diy12.jpg",
+        description: "Sacca cucita a mano in tessuto",
+        videoUrl: ""
+    },
+              {
+        category: "diy",
+        title: "Origami",
+        image: "images/diy13.jpg",
+        description: "Origami, prime creazioni",
+        videoUrl: ""
     },
    
     // --- ART PROJECTS (Galleria) ---
